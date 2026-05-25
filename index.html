@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,10 +8,12 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <style>
         :root {
             --fpt-orange: #f37021;
@@ -53,12 +56,12 @@
             display: flex;
             flex-direction: column;
             z-index: 100;
-            box-shadow: 4px 0 10px rgba(0,0,0,0.1);
+            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
         }
 
         .sidebar-header {
             padding: 24px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             text-align: center;
         }
 
@@ -86,8 +89,9 @@
         .sidebar-menu::-webkit-scrollbar {
             width: 5px;
         }
+
         .sidebar-menu::-webkit-scrollbar-thumb {
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.2);
             border-radius: 4px;
         }
 
@@ -95,7 +99,7 @@
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: rgba(255,255,255,0.4);
+            color: rgba(255, 255, 255, 0.4);
             padding: 12px 24px 6px 24px;
             font-weight: 700;
         }
@@ -104,7 +108,7 @@
             display: flex;
             align-items: center;
             padding: 10px 24px;
-            color: rgba(255,255,255,0.8);
+            color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
             font-size: 0.9rem;
             font-weight: 500;
@@ -113,13 +117,13 @@
         }
 
         .sidebar-menu a:hover {
-            background-color: rgba(255,255,255,0.05);
+            background-color: rgba(255, 255, 255, 0.05);
             color: #ffffff;
             border-left-color: var(--fpt-orange);
         }
 
         .sidebar-menu li.active a {
-            background-color: rgba(255,255,255,0.1);
+            background-color: rgba(255, 255, 255, 0.1);
             color: #ffffff;
             border-left-color: var(--fpt-orange);
             font-weight: 600;
@@ -150,7 +154,7 @@
             margin-bottom: 40px;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0,45,114,0.15);
+            box-shadow: 0 10px 25px rgba(0, 45, 114, 0.15);
             border-bottom: 6px solid var(--fpt-orange);
         }
 
@@ -187,7 +191,7 @@
 
         .hero-banner p.subtitle {
             font-size: 1.1rem;
-            color: rgba(255,255,255,0.8);
+            color: rgba(255, 255, 255, 0.8);
             margin-bottom: 24px;
         }
 
@@ -195,7 +199,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
-            border-top: 1px solid rgba(255,255,255,0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             padding-top: 20px;
         }
 
@@ -213,7 +217,7 @@
         .meta-text span {
             display: block;
             font-size: 0.75rem;
-            color: rgba(255,255,255,0.5);
+            color: rgba(255, 255, 255, 0.5);
             text-transform: uppercase;
         }
 
@@ -228,7 +232,7 @@
             border-radius: 12px;
             padding: 35px;
             margin-bottom: 40px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
             border: 1px solid var(--border-color);
             scroll-margin-top: 40px;
         }
@@ -272,7 +276,8 @@
         }
 
         /* Lists */
-        ul, ol {
+        ul,
+        ol {
             padding-left: 24px;
             margin-bottom: 16px;
         }
@@ -304,12 +309,12 @@
             margin: 16px 0;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .code-lang {
             background-color: #11111b;
-            color: rgba(255,255,255,0.5);
+            color: rgba(255, 255, 255, 0.5);
             font-size: 0.75rem;
             padding: 6px 16px;
             font-family: 'JetBrains Mono', monospace;
@@ -318,7 +323,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         pre {
@@ -336,7 +341,7 @@
         }
 
         /* Inline code */
-        :not(pre) > code {
+        :not(pre)>code {
             background-color: #f1f5f9;
             color: #e11d48;
             padding: 2px 6px;
@@ -414,7 +419,7 @@
             color: var(--fpt-orange);
             font-weight: 600;
         }
-        
+
         .badge {
             display: inline-block;
             padding: 2px 8px;
@@ -423,11 +428,18 @@
             border-radius: 4px;
             text-transform: uppercase;
         }
-        
-        .badge-primary { background-color: #e0f2fe; color: #0369a1; }
-        .badge-success { background-color: #dcfce7; color: #15803d; }
 
-        
+        .badge-primary {
+            background-color: #e0f2fe;
+            color: #0369a1;
+        }
+
+        .badge-success {
+            background-color: #dcfce7;
+            color: #15803d;
+        }
+
+
         /* --- COPY BUTTON --- */
         .copy-btn {
             background-color: rgba(255, 255, 255, 0.1);
@@ -443,11 +455,12 @@
             gap: 6px;
             outline: none;
         }
+
         .copy-btn:hover {
             background-color: rgba(255, 255, 255, 0.2);
             color: #fff;
         }
-        
+
         /* --- CALLOUT ASSESS --- */
         .callout-assess {
             background-color: #f0fdf4;
@@ -456,6 +469,7 @@
             padding: 16px;
             margin: 20px 0;
         }
+
         .callout-assess h4 {
             color: #166534;
             font-size: 0.95rem;
@@ -465,10 +479,12 @@
             align-items: center;
             gap: 8px;
         }
+
         .callout-assess ul {
             margin-bottom: 0;
             padding-left: 20px;
         }
+
         .callout-assess li {
             color: #15803d;
             font-size: 0.9rem;
@@ -481,6 +497,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <!-- SIDEBAR NAVIGATION -->
@@ -490,9 +507,10 @@
             <div class="logo-sub">XƯỞNG THỰC HÀNH FPT POLY</div>
         </div>
         <ul class="sidebar-menu">
-            <li class="active"><a href="#thong-tin-chung"><i class="fa-solid fa-circle-info"></i>Thông Tin Chung</a></li>
+            <li class="active"><a href="#thong-tin-chung"><i class="fa-solid fa-circle-info"></i>Thông Tin Chung</a>
+            </li>
             <li><a href="#tong-quan-lo-trinh"><i class="fa-solid fa-list-check"></i>Tổng Quan Lộ Trình</a></li>
-            
+
             <div class="menu-item-header">Chi Tiết Từng Buổi</div>
             <li><a href="#buoi-1"><i class="fa-solid fa-box-open"></i>Buổi 1: Khởi Động</a></li>
             <li><a href="#buoi-2"><i class="fa-solid fa-cloud-arrow-down"></i>Buổi 2: REST Controller</a></li>
@@ -502,7 +520,7 @@
             <li><a href="#buoi-6"><i class="fa-solid fa-shield-halved"></i>Buổi 6: Validation & Error</a></li>
             <li><a href="#buoi-7"><i class="fa-solid fa-file-code"></i>Buổi 7: DTO & Ghi Log</a></li>
             <li><a href="#buoi-8"><i class="fa-solid fa-rocket"></i>Buổi 8: Mini Project & Deploy</a></li>
-            
+
             <div class="menu-item-header">Tổng Kết & Phụ Lục</div>
             <li><a href="#danh-gia"><i class="fa-solid fa-award"></i>Tiêu Chí Đánh Giá</a></li>
             <li><a href="#phu-luc"><i class="fa-solid fa-book-open"></i>Tài Liệu & Lộ Trình</a></li>
@@ -511,19 +529,19 @@
 
     <!-- MAIN CONTENT CONTAINER -->
     <main class="main-content">
-        
+
         <!-- HERO BANNER -->
         <header class="hero-banner">
             <div class="hero-tag">Giáo trình đào tạo - Hướng dẫn Lab</div>
             <h1>Lập Trình Web Với Spring Boot</h1>
             <p class="subtitle">Chương trình 8 buổi - Kiến thức thực chiến cốt lõi dành cho Web Developer</p>
-            
+
             <div class="meta-grid">
                 <div class="meta-item">
                     <i class="fa-solid fa-user-tie"></i>
                     <div class="meta-text">
                         <span>Giảng viên biên soạn</span>
-                        <strong>Thầy Trần Quang Bình</strong>
+                        <strong>Thầy Trần Quang Bình - Thầy Bùi Quốc Đạt</strong>
                     </div>
                 </div>
                 <div class="meta-item">
@@ -546,40 +564,54 @@
         <!-- PHẦN A: THÔNG TIN CHUNG -->
         <section id="thong-tin-chung" class="doc-section">
             <h2 class="section-title"><i class="fa-solid fa-circle-info"></i>A. Thông Tin Chung Về Khóa Học</h2>
-            
+
             <h3 class="subsection-title">1. Mục tiêu khóa học</h3>
-            <p>Sau khi hoàn thành chuỗi 8 buổi học thực chiến này, sinh viên sẽ làm chủ được các năng lực cốt lõi sau:</p>
+            <p>Sau khi hoàn thành chuỗi 8 buổi học thực chiến này, sinh viên sẽ làm chủ được các năng lực cốt lõi sau:
+            </p>
             <ul>
-                <li><strong>Hiểu bản chất:</strong> Định vị được Spring Boot trong hệ sinh thái Java; hiểu rõ lý do doanh nghiệp dịch chuyển sang Spring Boot thay vì Spring MVC truyền thống.</li>
+                <li><strong>Hiểu bản chất:</strong> Định vị được Spring Boot trong hệ sinh thái Java; hiểu rõ lý do
+                    doanh nghiệp dịch chuyển sang Spring Boot thay vì Spring MVC truyền thống.</li>
                 <li><strong>Khởi tạo & Cấu hình:</strong> Tự cấu hình, tổ chức quản lý dự án chuẩn thông qua Maven.</li>
-                <li><strong>Kiến trúc ứng dụng:</strong> Áp dụng thuần thục kiến trúc phân tầng 3 lớp (Controller – Service – Repository) khi viết mã nguồn.</li>
-                <li><strong>Thao tác dữ liệu:</strong> Làm chủ công nghệ ORM, kết nối kết xuất dữ liệu MySQL thông qua Spring Data JPA một cách tự động.</li>
-                <li><strong>Hoàn thiện API chuẩn:</strong> Xây dựng hệ thống REST API tích hợp đầy đủ tính năng validation (kiểm tra dữ liệu rác) và xử lý ngoại lệ tập trung.</li>
-                <li><strong>Đóng gói & Phát hành:</strong> Đóng gói ứng dụng thành tệp thực thi độc lập, ảo hóa môi trường qua Docker và deploy thành công lên internet thực tế.</li>
+                <li><strong>Kiến trúc ứng dụng:</strong> Áp dụng thuần thục kiến trúc phân tầng 3 lớp (Controller –
+                    Service – Repository) khi viết mã nguồn.</li>
+                <li><strong>Thao tác dữ liệu:</strong> Làm chủ công nghệ ORM, kết nối kết xuất dữ liệu MySQL thông qua
+                    Spring Data JPA một cách tự động.</li>
+                <li><strong>Hoàn thiện API chuẩn:</strong> Xây dựng hệ thống REST API tích hợp đầy đủ tính năng
+                    validation (kiểm tra dữ liệu rác) và xử lý ngoại lệ tập trung.</li>
+                <li><strong>Đóng gói & Phát hành:</strong> Đóng gói ứng dụng thành tệp thực thi độc lập, ảo hóa môi
+                    trường qua Docker và deploy thành công lên internet thực tế.</li>
             </ul>
 
             <h3 class="subsection-title">2. Yêu cầu đầu vào</h3>
             <ul>
-                <li>Đã hoàn thành môn Lập trình Java cơ bản (nắm chắc lập trình hướng đối tượng OOP, Exception Handling, Collections Framework, Generic, Lambda và Stream API).</li>
-                <li>Đã làm quen với hệ quản trị cơ sở dữ liệu quan hệ và ngôn ngữ SQL ở mức cơ bản (các lệnh SELECT, INSERT, UPDATE, DELETE và câu lệnh truy vấn JOIN).</li>
+                <li>Đã hoàn thành môn Lập trình Java cơ bản (nắm chắc lập trình hướng đối tượng OOP, Exception Handling,
+                    Collections Framework, Generic, Lambda và Stream API).</li>
+                <li>Đã làm quen với hệ quản trị cơ sở dữ liệu quan hệ và ngôn ngữ SQL ở mức cơ bản (các lệnh SELECT,
+                    INSERT, UPDATE, DELETE và câu lệnh truy vấn JOIN).</li>
             </ul>
 
             <h3 class="subsection-title">3. Công cụ và phần mềm chuẩn bị</h3>
             <ul>
                 <li><strong>JDK 17 hoặc JDK 21 (LTS)</strong> làm môi trường biên dịch lõi.</li>
-                <li><strong>IntelliJ IDEA Community Edition</strong> (hoặc bản Ultimate) hoặc Eclipse/Spring Tool Suite.</li>
-                <li><strong>Maven</strong> (Được tích hợp sẵn đi kèm cùng IDE, không yêu cầu cài đặt riêng độc lập).</li>
-                <li><strong>MySQL Server 8.x</strong> kết hợp giao diện trực quan <strong>MySQL Workbench</strong> hoặc DBeaver.</li>
-                <li><strong>Postman</strong> (hoặc Insomnia) phục vụ công tác gửi gói request kiểm thử hệ thống API.</li>
-                <li><strong>Git</strong> và tài khoản cá nhân trên nền tảng <strong>GitHub</strong> để quản lý toàn bộ kho lưu trữ source code.</li>
+                <li><strong>IntelliJ IDEA Community Edition</strong> (hoặc bản Ultimate) hoặc Eclipse/Spring Tool Suite.
+                </li>
+                <li><strong>Maven</strong> (Được tích hợp sẵn đi kèm cùng IDE, không yêu cầu cài đặt riêng độc lập).
+                </li>
+                <li><strong>MySQL Server 8.x</strong> kết hợp giao diện trực quan <strong>MySQL Workbench</strong> hoặc
+                    DBeaver.</li>
+                <li><strong>Postman</strong> (hoặc Insomnia) phục vụ công tác gửi gói request kiểm thử hệ thống API.
+                </li>
+                <li><strong>Git</strong> và tài khoản cá nhân trên nền tảng <strong>GitHub</strong> để quản lý toàn bộ
+                    kho lưu trữ source code.</li>
             </ul>
         </section>
 
         <!-- PHẦN B: TỔNG QUAN LỘ TRÌNH -->
         <section id="tong-quan-lo-trinh" class="doc-section">
             <h2 class="section-title"><i class="fa-solid fa-list-check"></i>B. Tổng Quan Lộ Trình 8 Buổi Học</h2>
-            <p>Bảng dưới đây tóm tắt nội dung trọng tâm và kết quả đầu ra (Output) mong đợi bắt buộc của từng buổi thực hành:</p>
-            
+            <p>Bảng dưới đây tóm tắt nội dung trọng tâm và kết quả đầu ra (Output) mong đợi bắt buộc của từng buổi thực
+                hành:</p>
+
             <div class="table-responsive">
                 <table>
                     <thead>
@@ -594,50 +626,66 @@
                         <tr>
                             <td><strong>1</strong></td>
                             <td><span class="text-orange">Khởi động Spring Boot</span></td>
-                            <td>Ôn tập Java nhanh, giới thiệu Spring/Spring Boot, Tour Spring Initializr, phân tích cấu trúc dự án.</td>
-                            <td>+ Chia nhóm & chọn chủ đề dự án.<br>+ Hello World REST chạy ổn định trên trình duyệt.</td>
+                            <td>Ôn tập Java nhanh, giới thiệu Spring/Spring Boot, Tour Spring Initializr, phân tích cấu
+                                trúc dự án.</td>
+                            <td>+ Chia nhóm & chọn chủ đề dự án.<br>+ Hello World REST chạy ổn định trên trình duyệt.
+                            </td>
                         </tr>
                         <tr>
                             <td><strong>2</strong></td>
                             <td><span class="text-orange">REST Controller cơ bản</span></td>
-                            <td>HTTP methods, các tập hợp annotation ánh xạ Mapping, ResponseEntity, viết Postman Collection kiểm thử.</td>
-                            <td>Hoàn thành CRUD API trên dữ liệu tạm thời in-memory cho thực thể Đối tượng Sản phẩm (Product).</td>
+                            <td>HTTP methods, các tập hợp annotation ánh xạ Mapping, ResponseEntity, viết Postman
+                                Collection kiểm thử.</td>
+                            <td>Hoàn thành CRUD API trên dữ liệu tạm thời in-memory cho thực thể Đối tượng Sản phẩm
+                                (Product).</td>
                         </tr>
                         <tr>
                             <td><strong>3</strong></td>
                             <td><span class="text-orange">DI & Kiến trúc 3 lớp</span></td>
-                            <td>Cơ chế kiểm soát IoC, Bean, các stereotype annotation, tách ba tầng Controller - Service - Repository, viết Unit Test.</td>
-                            <td>Mã nguồn dự án được tổ chức phân tầng rõ ràng, triển khai thành công 1-2 unit test mẫu.</td>
+                            <td>Cơ chế kiểm soát IoC, Bean, các stereotype annotation, tách ba tầng Controller - Service
+                                - Repository, viết Unit Test.</td>
+                            <td>Mã nguồn dự án được tổ chức phân tầng rõ ràng, triển khai thành công 1-2 unit test mẫu.
+                            </td>
                         </tr>
                         <tr>
                             <td><strong>4</strong></td>
                             <td><span class="text-orange">Spring Data JPA - P1</span></td>
-                            <td>Khái niệm ORM, cấu hình Entity, khóa Id, cột Column, JpaRepository, kết nối H2 và cơ sở dữ liệu MySQL thật.</td>
-                            <td>Xóa dữ liệu in-memory, hoàn thiện tính năng CRUD ghi/đọc dữ liệu trực tiếp xuống MySQL.</td>
+                            <td>Khái niệm ORM, cấu hình Entity, khóa Id, cột Column, JpaRepository, kết nối H2 và cơ sở
+                                dữ liệu MySQL thật.</td>
+                            <td>Xóa dữ liệu in-memory, hoàn thiện tính năng CRUD ghi/đọc dữ liệu trực tiếp xuống MySQL.
+                            </td>
                         </tr>
                         <tr>
                             <td><strong>5</strong></td>
                             <td><span class="text-orange">Spring Data JPA - P2</span></td>
-                            <td>Thiết lập mối quan hệ thực thể OneToMany/ManyToOne, fetch type (LAZY/EAGER), cú pháp JPQL, Phân trang và Sắp xếp.</td>
-                            <td>API hỗ trợ liên kết thực thể cha-con, phản hồi dữ liệu phân trang kèm metadata điều hướng.</td>
+                            <td>Thiết lập mối quan hệ thực thể OneToMany/ManyToOne, fetch type (LAZY/EAGER), cú pháp
+                                JPQL, Phân trang và Sắp xếp.</td>
+                            <td>API hỗ trợ liên kết thực thể cha-con, phản hồi dữ liệu phân trang kèm metadata điều
+                                hướng.</td>
                         </tr>
                         <tr>
                             <td><strong>6</strong></td>
                             <td><span class="text-orange">Validation & Exception</span></td>
-                            <td>Ứng dụng Bean Validation, từ khóa @Valid, xử lý ngoại lệ tập trung bằng ControllerAdvice, chuẩn hóa response lỗi.</td>
-                            <td>Hệ thống chống được dữ liệu rác đầu vào, trả cấu trúc thông báo lỗi JSON đồng bộ, tinh gọn.</td>
+                            <td>Ứng dụng Bean Validation, từ khóa @Valid, xử lý ngoại lệ tập trung bằng
+                                ControllerAdvice, chuẩn hóa response lỗi.</td>
+                            <td>Hệ thống chống được dữ liệu rác đầu vào, trả cấu trúc thông báo lỗi JSON đồng bộ, tinh
+                                gọn.</td>
                         </tr>
                         <tr>
                             <td><strong>7</strong></td>
                             <td><span class="text-orange">DTO & Configuration</span></td>
-                            <td>Tách biệt dữ liệu qua lớp bọc DTO, cơ chế Mapping, ghi nhật ký SLF4J, quản lý môi trường linh hoạt qua profiles yml.</td>
-                            <td>Project nâng cao tính bảo mật an toàn thông tin, tự động ghi log ra file cứng, tách biệt cấu hình dev/prod.</td>
+                            <td>Tách biệt dữ liệu qua lớp bọc DTO, cơ chế Mapping, ghi nhật ký SLF4J, quản lý môi trường
+                                linh hoạt qua profiles yml.</td>
+                            <td>Project nâng cao tính bảo mật an toàn thông tin, tự động ghi log ra file cứng, tách biệt
+                                cấu hình dev/prod.</td>
                         </tr>
                         <tr>
                             <td><strong>8</strong></td>
                             <td><span class="text-orange">Mini Project & Deploy</span></td>
-                            <td>Hoàn thiện sản phẩm cuối khóa, hướng dẫn đóng gói build JAR, thiết lập file Dockerfile, thực thi deploy môi trường đám mây.</td>
-                            <td>Sản phẩm hoàn thiện vận hành trực tuyến trên internet, cấp phát URL công khai cho giảng viên chấm điểm.</td>
+                            <td>Hoàn thiện sản phẩm cuối khóa, hướng dẫn đóng gói build JAR, thiết lập file Dockerfile,
+                                thực thi deploy môi trường đám mây.</td>
+                            <td>Sản phẩm hoàn thiện vận hành trực tuyến trên internet, cấp phát URL công khai cho giảng
+                                viên chấm điểm.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -646,27 +694,37 @@
 
         <!-- CHI TIẾT BUỔI 1 -->
         <section id="buoi-1" class="doc-section">
-            <h2 class="section-title"><i class="fa-solid fa-box-open"></i>Buổi 1: Khởi Động Dự Án & Hello World REST API</h2>
+            <h2 class="section-title"><i class="fa-solid fa-box-open"></i>Buổi 1: Khởi Động Dự Án & Hello World REST API
+            </h2>
             <h3 class="subsection-title">1.1 Tóm tắt Lý thuyết & Kiến thức Cốt lõi</h3>
-            <p><strong>Spring Boot</strong> hoạt động theo cơ chế tự động cấu hình (Auto-configuration) nhằm triệt tiêu công đoạn khai báo file XML phiền phức của Spring truyền thống. Nó nhúng sẵn ứng dụng máy chủ <strong>Tomcat</strong> bên trong, cho phép phần mềm chạy độc lập tức thì sau khi kích hoạt tệp tin thực thi.</p>
-            
+            <p><strong>Spring Boot</strong> hoạt động theo cơ chế tự động cấu hình (Auto-configuration) nhằm triệt tiêu
+                công đoạn khai báo file XML phiền phức của Spring truyền thống. Nó nhúng sẵn ứng dụng máy chủ
+                <strong>Tomcat</strong> bên trong, cho phép phần mềm chạy độc lập tức thì sau khi kích hoạt tệp tin thực
+                thi.</p>
+
             <h3 class="subsection-title">1.2 Hướng dẫn thực hành từng bước (Step-by-Step)</h3>
-            
+
             <div class="step-block">
                 <div class="step-title">Bước 1: Khởi tạo Project trên Spring Initializr</div>
                 <p>Truy cập vào trang web: <code>start.spring.io</code> và thiết lập cấu hình chính xác:</p>
                 <ul>
-                    <li><strong>Project:</strong> Maven | <strong>Language:</strong> Java | <strong>Spring Boot:</strong> 3.3.x (Bản Stable)</li>
-                    <li><strong>Metadata:</strong> Group: <code>com.fpoly</code> | Artifact: <code>sof3022-lab</code> | Package: <code>com.fpoly.lab</code> | Java: 17</li>
-                    <li><strong>Dependencies:</strong> Tìm chọn đúng 3 thư viện: <code>Spring Web</code>, <code>Spring Boot DevTools</code>, và <code>Lombok</code>.</li>
+                    <li><strong>Project:</strong> Maven | <strong>Language:</strong> Java | <strong>Spring
+                            Boot:</strong> 3.3.x (Bản Stable)</li>
+                    <li><strong>Metadata:</strong> Group: <code>com.fpoly</code> | Artifact: <code>sof3022-lab</code> |
+                        Package: <code>com.fpoly.lab</code> | Java: 17</li>
+                    <li><strong>Dependencies:</strong> Tìm chọn đúng 3 thư viện: <code>Spring Web</code>,
+                        <code>Spring Boot DevTools</code>, và <code>Lombok</code>.</li>
                 </ul>
-                <p>Bấm chọn nút <strong>GENERATE</strong> để tải về gói mã nguồn dạng nén <code>.zip</code>. Giải nén tệp tin và thực hiện mở import dự án bằng phần mềm <strong>IntelliJ IDEA</strong>.</p>
+                <p>Bấm chọn nút <strong>GENERATE</strong> để tải về gói mã nguồn dạng nén <code>.zip</code>. Giải nén
+                    tệp tin và thực hiện mở import dự án bằng phần mềm <strong>IntelliJ IDEA</strong>.</p>
             </div>
 
             <div class="step-block">
                 <div class="step-title">Bước 2: Tạo cấu trúc Package và Class Controller đầu tiên</div>
-                <p>Trong thư mục <code>src/main/java/com/fpoly/lab</code>, click chuột phải tạo package mới mang tên <code>controller</code>. Bên trong gói này, tạo tệp mã nguồn Java <code>HelloController.java</code>:</p>
-                
+                <p>Trong thư mục <code>src/main/java/com/fpoly/lab</code>, click chuột phải tạo package mới mang tên
+                    <code>controller</code>. Bên trong gói này, tạo tệp mã nguồn Java <code>HelloController.java</code>:
+                </p>
+
                 <div class="code-container">
                     <div class="code-lang">Java</div>
                     <pre><code>package com.fpoly.lab.controller;
@@ -695,7 +753,8 @@ public class HelloController {
 
             <div class="step-block">
                 <div class="step-title">Bước 3: Đổi cấu hình cổng mạng hệ thống Server</div>
-                <p>Mở file tài nguyên hệ thống <code>src/main/resources/application.properties</code> và định cấu hình đổi port mạng tránh đụng độ:</p>
+                <p>Mở file tài nguyên hệ thống <code>src/main/resources/application.properties</code> và định cấu hình
+                    đổi port mạng tránh đụng độ:</p>
                 <div class="code-container">
                     <div class="code-lang">Properties</div>
                     <pre><code>server.port=8081</code></pre>
@@ -704,7 +763,8 @@ public class HelloController {
 
             <div class="step-block">
                 <div class="step-title">Bước 4: Chạy thử và Kiểm tra kết quả</div>
-                <p>Chuột phải vào file chứa hàm main <code>Sof3022LabApplication.java</code> chọn lệnh <strong>Run</strong>. Mở trình duyệt truy cập đường dẫn sau để kiểm tra kết quả:</p>
+                <p>Chuột phải vào file chứa hàm main <code>Sof3022LabApplication.java</code> chọn lệnh
+                    <strong>Run</strong>. Mở trình duyệt truy cập đường dẫn sau để kiểm tra kết quả:</p>
                 <ul>
                     <li><code>http://localhost:8081/hello</code></li>
                     <li><code>http://localhost:8081/math/sum?a=15&b=25</code></li>
@@ -714,12 +774,14 @@ public class HelloController {
             <div class="callout-note">
                 <h4><i class="fa-solid fa-pencil"></i>Bài tập rèn luyện nâng cao về nhà</h4>
                 <ul>
-                    <li>Tạo thêm 3 endpoint: <code>/info</code> (thông tin cá nhân), <code>/time</code> (thời gian hiện tại), <code>/math/sum?a=5&b=3</code> (tổng 2 số).</li>
+                    <li>Tạo thêm 3 endpoint: <code>/info</code> (thông tin cá nhân), <code>/time</code> (thời gian hiện
+                        tại), <code>/math/sum?a=5&b=3</code> (tổng 2 số).</li>
                     <li>Đẩy code lên GitHub repo cá nhân (tạo repo mới, gắn .gitignore cho Java).</li>
-                    <li>Đọc thêm về Maven lifecycle (compile, test, package, install) và viết tóm tắt khoảng 200 từ.</li>
+                    <li>Đọc thêm về Maven lifecycle (compile, test, package, install) và viết tóm tắt khoảng 200 từ.
+                    </li>
                 </ul>
             </div>
-            
+
             <div class="callout-assess">
                 <h4><i class="fa-solid fa-check-double"></i>Tiêu chí đánh giá</h4>
                 <ul>
@@ -732,15 +794,20 @@ public class HelloController {
 
         <!-- CHI TIẾT BUỔI 2 -->
         <section id="buoi-2" class="doc-section">
-            <h2 class="section-title"><i class="fa-solid fa-cloud-arrow-down"></i>Buổi 2: REST Controller Cơ Bản & Thao Tác Dữ Liệu Tạm Thời</h2>
+            <h2 class="section-title"><i class="fa-solid fa-cloud-arrow-down"></i>Buổi 2: REST Controller Cơ Bản & Thao
+                Tác Dữ Liệu Tạm Thời</h2>
             <h3 class="subsection-title">2.1 Tóm tắt Lý thuyết & Kiến thức Cốt lõi</h3>
-            <p><strong>RESTful API</strong> thiết lập thiết kế định vị tài nguyên bằng danh từ số nhiều quy ước công khai và thực hiện thao tác tác động trực tiếp thông qua 4 giao thức HTTP chính xác: <code>GET</code> (Đọc dữ liệu), <code>POST</code> (Khởi tạo mới), <code>PUT</code> (Sửa đổi toàn bộ), và <code>DELETE</code> (Xóa bỏ).</p>
-            
+            <p><strong>RESTful API</strong> thiết lập thiết kế định vị tài nguyên bằng danh từ số nhiều quy ước công
+                khai và thực hiện thao tác tác động trực tiếp thông qua 4 giao thức HTTP chính xác: <code>GET</code>
+                (Đọc dữ liệu), <code>POST</code> (Khởi tạo mới), <code>PUT</code> (Sửa đổi toàn bộ), và
+                <code>DELETE</code> (Xóa bỏ).</p>
+
             <h3 class="subsection-title">2.2 Hướng dẫn thực hành từng bước (Step-by-Step)</h3>
-            
+
             <div class="step-block">
                 <div class="step-title">Bước 1: Thiết kế mô hình lớp thực thể lưu trữ đối tượng (Model)</div>
-                <p>Tạo một package mới mang tên <code>com.fpoly.lab.model</code>. Khởi tạo tệp tin <code>Product.java</code> ứng dụng Lombok:</p>
+                <p>Tạo một package mới mang tên <code>com.fpoly.lab.model</code>. Khởi tạo tệp tin
+                    <code>Product.java</code> ứng dụng Lombok:</p>
                 <div class="code-container">
                     <div class="code-lang">Java</div>
                     <pre><code>package com.fpoly.lab.model;
@@ -762,7 +829,8 @@ public class Product {
 
             <div class="step-block">
                 <div class="step-title">Bước 2: Triển khai ProductController xử lý API tuần hoàn CRUD</div>
-                <p>Tạo một Class Java mới mang tên <code>ProductController.java</code> đặt trong gói <code>controller</code>:</p>
+                <p>Tạo một Class Java mới mang tên <code>ProductController.java</code> đặt trong gói
+                    <code>controller</code>:</p>
                 <div class="code-container">
                     <div class="code-lang">Java</div>
                     <pre><code>package com.fpoly.lab.controller;
@@ -828,7 +896,10 @@ public class ProductController {
 
             <div class="step-block">
                 <div class="step-title">Bước 3: Hướng dẫn cấu hình kiểm thử dữ liệu qua phần mềm Postman</div>
-                <p>Để test tính năng thêm mới <code>POST</code>: Chọn phương thức hành động tương ứng trong Postman, điền đường link <code>http://localhost:8081/api/products</code>. Chuyển sang thẻ <strong>Body</strong> &rarr; chọn mục định dạng thô <strong>raw</strong> &rarr; chọn kiểu dữ liệu cấu trúc <strong>JSON</strong> và truyền dữ liệu mẫu sau:</p>
+                <p>Để test tính năng thêm mới <code>POST</code>: Chọn phương thức hành động tương ứng trong Postman,
+                    điền đường link <code>http://localhost:8081/api/products</code>. Chuyển sang thẻ
+                    <strong>Body</strong> &rarr; chọn mục định dạng thô <strong>raw</strong> &rarr; chọn kiểu dữ liệu
+                    cấu trúc <strong>JSON</strong> và truyền dữ liệu mẫu sau:</p>
                 <div class="code-container">
                     <div class="code-lang">JSON</div>
                     <pre><code>{
@@ -837,18 +908,20 @@ public class ProductController {
     "price": 1250000.0
 }</code></pre>
                 </div>
-                <p>Bấm chọn nút <strong>Send</strong> kiểm tra mã trạng thái góc màn hình phản hồi chuẩn <code>201 Created</code>.</p>
+                <p>Bấm chọn nút <strong>Send</strong> kiểm tra mã trạng thái góc màn hình phản hồi chuẩn
+                    <code>201 Created</code>.</p>
             </div>
-            
+
             <div class="callout-note">
                 <h4><i class="fa-solid fa-pencil"></i>Bài tập rèn luyện nâng cao về nhà</h4>
                 <ul>
                     <li>Bổ sung endpoint <code>GET /api/products/top?n=5</code> trả về 5 sản phẩm nổi bật.</li>
-                    <li>Bổ sung endpoint <code>GET /api/products/statistics</code> trả về thống kê: tổng số, giá trung bình, cao nhất, thấp nhất.</li>
+                    <li>Bổ sung endpoint <code>GET /api/products/statistics</code> trả về thống kê: tổng số, giá trung
+                        bình, cao nhất, thấp nhất.</li>
                     <li>Tạo collection Postman lưu lại các request đã test, export ra file JSON và đẩy lên GitHub.</li>
                 </ul>
             </div>
-            
+
             <div class="callout-assess">
                 <h4><i class="fa-solid fa-check-double"></i>Tiêu chí đánh giá</h4>
                 <ul>
@@ -861,15 +934,20 @@ public class ProductController {
 
         <!-- CHI TIẾT BUỔI 3 -->
         <section id="buoi-3" class="doc-section">
-            <h2 class="section-title"><i class="fa-solid fa-layer-group"></i>Buổi 3: Dependency Injection & Kiến Trúc Thiết Kế Phân Tầng 3 Lớp</h2>
+            <h2 class="section-title"><i class="fa-solid fa-layer-group"></i>Buổi 3: Dependency Injection & Kiến Trúc
+                Thiết Kế Phân Tầng 3 Lớp</h2>
             <h3 class="subsection-title">3.1 Tóm tắt Lý thuyết & Kiến thức Cốt lõi</h3>
-            <p>Việc viết dồn toàn bộ mã nguồn xử lý logic nghiệp vụ và lưu trữ vào duy nhất file Controller vi phạm nghiêm trọng nguyên lý đơn nhiệm diện rộng. Kiến trúc <strong>3-Tier Architecture</strong> phân rã tách biệt dự án thành các lớp độc lập: <strong>Controller</strong> (Giao tiếp), <strong>Service</strong> (Thuật toán Nghiệp vụ), và <strong>Repository</strong> (Truy xuất Kho dữ liệu).</p>
-            
+            <p>Việc viết dồn toàn bộ mã nguồn xử lý logic nghiệp vụ và lưu trữ vào duy nhất file Controller vi phạm
+                nghiêm trọng nguyên lý đơn nhiệm diện rộng. Kiến trúc <strong>3-Tier Architecture</strong> phân rã tách
+                biệt dự án thành các lớp độc lập: <strong>Controller</strong> (Giao tiếp), <strong>Service</strong>
+                (Thuật toán Nghiệp vụ), và <strong>Repository</strong> (Truy xuất Kho dữ liệu).</p>
+
             <h3 class="subsection-title">3.2 Hướng dẫn thực hành từng bước (Step-by-Step)</h3>
-            
+
             <div class="step-block">
                 <div class="step-title">Bước 1: Triển khai thiết kế cô lập tầng quản lý dữ liệu Repository</div>
-                <p>Tạo một gói package mới mang tên <code>com.fpoly.lab.repository</code>. Khởi tạo một Class Java mang tên <code>ProductRepository.java</code>:</p>
+                <p>Tạo một gói package mới mang tên <code>com.fpoly.lab.repository</code>. Khởi tạo một Class Java mang
+                    tên <code>ProductRepository.java</code>:</p>
                 <div class="code-container">
                     <div class="code-lang">Java</div>
                     <pre><code>package com.fpoly.lab.repository;
@@ -898,8 +976,10 @@ public class ProductRepository {
             </div>
 
             <div class="step-block">
-                <div class="step-title">Bước 2: Triển khai thiết kế tầng quản trị trung gian thuật toán nghiệp vụ Service</div>
-                <p>Tạo một package mới mang tên <code>com.fpoly.lab.service</code>. Khởi tạo một lớp Java mang tên <code>ProductService.java</code>:</p>
+                <div class="step-title">Bước 2: Triển khai thiết kế tầng quản trị trung gian thuật toán nghiệp vụ
+                    Service</div>
+                <p>Tạo một package mới mang tên <code>com.fpoly.lab.service</code>. Khởi tạo một lớp Java mang tên
+                    <code>ProductService.java</code>:</p>
                 <div class="code-container">
                     <div class="code-lang">Java</div>
                     <pre><code>package com.fpoly.lab.service;
@@ -934,7 +1014,8 @@ public class ProductService {
 
             <div class="step-block">
                 <div class="step-title">Bước 3: Cấu trúc lại Controller phiên bản mới gọi liên kết qua Service</div>
-                <p>Tạo một Class Java điều phối nâng cấp mang tên `ProductControllerV2.java` nằm trong gói `controller`:</p>
+                <p>Tạo một Class Java điều phối nâng cấp mang tên `ProductControllerV2.java` nằm trong gói `controller`:
+                </p>
                 <div class="code-container">
                     <div class="code-lang">Java</div>
                     <pre><code>package com.fpoly.lab.controller;
@@ -967,16 +1048,17 @@ public class ProductControllerV2 {
 }</code></pre>
                 </div>
             </div>
-            
+
             <div class="callout-note">
                 <h4><i class="fa-solid fa-pencil"></i>Bài tập rèn luyện nâng cao về nhà</h4>
                 <ul>
                     <li>Hoàn thiện refactor project Product 3 lớp đầy đủ.</li>
-                    <li>Viết tối thiểu 3 unit test cho ProductService: test khi tìm thấy sản phẩm, khi không tìm thấy, khi thêm mới hợp lệ.</li>
+                    <li>Viết tối thiểu 3 unit test cho ProductService: test khi tìm thấy sản phẩm, khi không tìm thấy,
+                        khi thêm mới hợp lệ.</li>
                     <li>Vẽ sơ đồ class diagram đơn giản (có thể vẽ tay rồi chụp ảnh) thể hiện quan hệ giữa 3 tầng.</li>
                 </ul>
             </div>
-            
+
             <div class="callout-assess">
                 <h4><i class="fa-solid fa-check-double"></i>Tiêu chí đánh giá</h4>
                 <ul>
@@ -990,15 +1072,20 @@ public class ProductControllerV2 {
 
         <!-- CHI TIẾT BUỔI 4 -->
         <section id="buoi-4" class="doc-section">
-            <h2 class="section-title"><i class="fa-solid fa-database"></i>Buổi 4: Kết Nối Cơ Sở Dữ Liệu Thật Với Spring Data JPA (P1)</h2>
+            <h2 class="section-title"><i class="fa-solid fa-database"></i>Buổi 4: Kết Nối Cơ Sở Dữ Liệu Thật Với Spring
+                Data JPA (P1)</h2>
             <h3 class="subsection-title">4.1 Tóm tắt Lý thuyết & Kiến thức Cốt lõi</h3>
-            <p><strong>Spring Data JPA</strong> là giải pháp công nghệ bọc trừu tượng (Wrapper) nằm phía trên JPA tiêu chuẩn, ứng dụng sức mạnh của Hibernate framework để triển khai kỹ nghệ ánh xạ thực thể <strong>ORM (Object-Relational Mapping)</strong> thông minh, tự động chuyển đổi cấu trúc Class Java thành định dạng bảng lưu trữ quan hệ tương thích dưới MySQL.</p>
-            
+            <p><strong>Spring Data JPA</strong> là giải pháp công nghệ bọc trừu tượng (Wrapper) nằm phía trên JPA tiêu
+                chuẩn, ứng dụng sức mạnh của Hibernate framework để triển khai kỹ nghệ ánh xạ thực thể <strong>ORM
+                    (Object-Relational Mapping)</strong> thông minh, tự động chuyển đổi cấu trúc Class Java thành định
+                dạng bảng lưu trữ quan hệ tương thích dưới MySQL.</p>
+
             <h3 class="subsection-title">4.2 Hướng dẫn thực hành từng bước (Step-by-Step)</h3>
-            
+
             <div class="step-block">
                 <div class="step-title">Bước 1: Chuẩn bị cơ sở dữ liệu trống trên hệ quản trị MySQL</div>
-                <p>Mở ứng dụng MySQL Workbench truy cập máy chủ phòng máy, tạo cơ sở dữ liệu mới hỗ trợ font tiếng Việt:</p>
+                <p>Mở ứng dụng MySQL Workbench truy cập máy chủ phòng máy, tạo cơ sở dữ liệu mới hỗ trợ font tiếng Việt:
+                </p>
                 <div class="code-container">
                     <div class="code-lang">SQL</div>
                     <pre><code>CREATE DATABASE fpoly_spring_core CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;</code></pre>
@@ -1006,7 +1093,8 @@ public class ProductControllerV2 {
             </div>
 
             <div class="step-block">
-                <div class="step-title">Bước 2: Bổ sung Driver kết nối dữ liệu vào file điều phối quản lý tài nguyên pom.xml</div>
+                <div class="step-title">Bước 2: Bổ sung Driver kết nối dữ liệu vào file điều phối quản lý tài nguyên
+                    pom.xml</div>
                 <p>Chèn thêm đoạn mã cấu hình dependencies sau vào bên trong tệp tin <code>pom.xml</code>:</p>
                 <div class="code-container">
                     <div class="code-lang">XML</div>
@@ -1020,12 +1108,14 @@ public class ProductControllerV2 {
     &lt;scope&gt;runtime&lt;/scope&gt;
 &lt;/dependency&gt;</code></pre>
                 </div>
-                <p>*Chú ý bắt buộc:* Nhấp chọn nút lệnh biểu tượng vòng xoay **Reload All Maven Projects** ở góc phải màn hình IntelliJ để ép buộc hệ thống tải file thư viện về.</p>
+                <p>*Chú ý bắt buộc:* Nhấp chọn nút lệnh biểu tượng vòng xoay **Reload All Maven Projects** ở góc phải
+                    màn hình IntelliJ để ép buộc hệ thống tải file thư viện về.</p>
             </div>
 
             <div class="step-block">
                 <div class="step-title">Bước 3: Định cấu hình khai báo chuỗi liên kết DataSource liên thông</div>
-                <p>Mở file thuộc tính hệ thống <code>src/main/resources/application.properties</code> và cập nhật cấu hình tài khoản kết nối cụ thể:</p>
+                <p>Mở file thuộc tính hệ thống <code>src/main/resources/application.properties</code> và cập nhật cấu
+                    hình tài khoản kết nối cụ thể:</p>
                 <div class="code-container">
                     <div class="code-lang">Properties</div>
                     <pre><code>spring.datasource.url=jdbc:mysql://localhost:3306/fpoly_spring_core?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
@@ -1042,8 +1132,10 @@ spring.jpa.properties.hibernate.format_sql=true</code></pre>
             </div>
 
             <div class="step-block">
-                <div class="step-title">Bước 4: Nâng cấp chuyển đổi cấu trúc Model thành lớp thực thể dữ liệu Entity</div>
-                <p>Mở file <code>Product.java</code> thuộc gói <code>model</code> bổ sung các Annotation định danh JPA tiêu chuẩn:</p>
+                <div class="step-title">Bước 4: Nâng cấp chuyển đổi cấu trúc Model thành lớp thực thể dữ liệu Entity
+                </div>
+                <p>Mở file <code>Product.java</code> thuộc gói <code>model</code> bổ sung các Annotation định danh JPA
+                    tiêu chuẩn:</p>
                 <div class="code-container">
                     <div class="code-lang">Java</div>
                     <pre><code>package com.fpoly.lab.model;
@@ -1075,7 +1167,8 @@ public class Product {
 
             <div class="step-block">
                 <div class="step-title">Bước 5: Viết bộ giao diện thông minh Interface JpaRepository</div>
-                <p>Trong gói <code>repository</code>, tạo một thực thể Interface mới mang tên <code>ProductDbRepository.java</code>:</p>
+                <p>Trong gói <code>repository</code>, tạo một thực thể Interface mới mang tên
+                    <code>ProductDbRepository.java</code>:</p>
                 <div class="code-container">
                     <div class="code-lang">Java</div>
                     <pre><code>package com.fpoly.lab.repository;
@@ -1093,18 +1186,21 @@ public interface ProductDbRepository extends JpaRepository<Product, Long> {
     List<Product> findByPriceGreaterThan(Double price);
 }</code></pre>
                 </div>
-                <p>Khởi chạy lại dự án, kiểm tra MySQL Workbench sẽ thấy bảng dữ liệu quan hệ tự động sinh ra một cách hoàn chỉnh.</p>
+                <p>Khởi chạy lại dự án, kiểm tra MySQL Workbench sẽ thấy bảng dữ liệu quan hệ tự động sinh ra một cách
+                    hoàn chỉnh.</p>
             </div>
-            
+
             <div class="callout-note">
                 <h4><i class="fa-solid fa-pencil"></i>Bài tập rèn luyện nâng cao về nhà</h4>
                 <ul>
-                    <li>Tạo thêm entity <code>Course</code> (id, ten, soTinChi, moTa) và CourseRepository, viết CRUD đầy đủ.</li>
-                    <li>Viết các derived query: <code>findByNameContaining</code> (tìm theo tên có chứa từ khóa), <code>findBySoTinChiGreaterThan</code> (lọc theo số tín chỉ).</li>
+                    <li>Tạo thêm entity <code>Course</code> (id, ten, soTinChi, moTa) và CourseRepository, viết CRUD đầy
+                        đủ.</li>
+                    <li>Viết các derived query: <code>findByNameContaining</code> (tìm theo tên có chứa từ khóa),
+                        <code>findBySoTinChiGreaterThan</code> (lọc theo số tín chỉ).</li>
                     <li>Insert sẵn 10 record mẫu vào database (dùng file SQL hoặc CommandLineRunner).</li>
                 </ul>
             </div>
-            
+
             <div class="callout-assess">
                 <h4><i class="fa-solid fa-check-double"></i>Tiêu chí đánh giá</h4>
                 <ul>
@@ -1118,15 +1214,19 @@ public interface ProductDbRepository extends JpaRepository<Product, Long> {
 
         <!-- CHI TIẾT BUỔI 5 -->
         <section id="buoi-5" class="doc-section">
-            <h2 class="section-title"><i class="fa-solid fa-diagram-project"></i>Buổi 5: Thiết Lập Mối Quan Hệ Thực Thể, Phân Trang & Sắp Xếp Dữ Liệu</h2>
+            <h2 class="section-title"><i class="fa-solid fa-diagram-project"></i>Buổi 5: Thiết Lập Mối Quan Hệ Thực Thể,
+                Phân Trang & Sắp Xếp Dữ Liệu</h2>
             <h3 class="subsection-title">5.1 Tóm tắt Lý thuyết & Kiến thức Cốt lõi</h3>
-            <p>Bài toán liên kết thực thể Một - Nhiều diễn ra phổ biến (Một Danh mục chứa Nhiều Sản phẩm). Cần đặc biệt ưu tiên cấu hình cơ chế nạp dữ liệu trì hoãn <code>FetchType.LAZY</code> nhằm ngăn chặn hiện tượng nghẽn băng thông và lỗi truy vấn hệ thống nghiêm trọng.</p>
-            
+            <p>Bài toán liên kết thực thể Một - Nhiều diễn ra phổ biến (Một Danh mục chứa Nhiều Sản phẩm). Cần đặc biệt
+                ưu tiên cấu hình cơ chế nạp dữ liệu trì hoãn <code>FetchType.LAZY</code> nhằm ngăn chặn hiện tượng nghẽn
+                băng thông và lỗi truy vấn hệ thống nghiêm trọng.</p>
+
             <h3 class="subsection-title">5.2 Hướng dẫn thực hành từng bước (Step-by-Step)</h3>
-            
+
             <div class="step-block">
                 <div class="step-title">Bước 1: Thiết lập tạo lớp thực thể cha Danh mục (Category)</div>
-                <p>Khởi tạo một Class mới mang tên `Category.java` đặt trong gói thư mục `model` định nghĩa mối quan hệ:</p>
+                <p>Khởi tạo một Class mới mang tên `Category.java` đặt trong gói thư mục `model` định nghĩa mối quan hệ:
+                </p>
                 <div class="code-container">
                     <div class="code-lang">Java</div>
                     <pre><code>package com.fpoly.lab.model;
@@ -1149,7 +1249,8 @@ public class Category {
     private List<Product> products;
 }</code></pre>
                 </div>
-                <p>Bổ sung thêm khóa ngoại liên kết thuộc tính sau vào bên trong thân Class con <code>Product.java</code>:</p>
+                <p>Bổ sung thêm khóa ngoại liên kết thuộc tính sau vào bên trong thân Class con
+                    <code>Product.java</code>:</p>
                 <div class="code-container">
                     <div class="code-lang">Java</div>
                     <pre><code>    @ManyToOne(fetch = FetchType.LAZY)
@@ -1159,8 +1260,10 @@ public class Category {
             </div>
 
             <div class="step-block">
-                <div class="step-title">Bước 2: Phát triển tính năng Phân trang dữ liệu lớn tại lớp nghiệp vụ Service</div>
-                <p>Mở rộng mã nguồn bên trong file xử lý <code>ProductService.java</code> chèn thêm thuật toán phân trang:</p>
+                <div class="step-title">Bước 2: Phát triển tính năng Phân trang dữ liệu lớn tại lớp nghiệp vụ Service
+                </div>
+                <p>Mở rộng mã nguồn bên trong file xử lý <code>ProductService.java</code> chèn thêm thuật toán phân
+                    trang:</p>
                 <div class="code-container">
                     <div class="code-lang">Java</div>
                     <pre><code>import org.springframework.data.domain.Page;
@@ -1178,7 +1281,8 @@ public Page<Product> getProductsWithPagination(int page, int size, String sortBy
 
             <div class="step-block">
                 <div class="step-title">Bước 3: Tiếp nhận tham số động kiểm thử phân trang tại Controller</div>
-                <p>Cập nhật bổ sung Endpoint động tiếp nhận Query String từ Client gửi lên vào lớp điều phối <code>ProductControllerV2.java</code>:</p>
+                <p>Cập nhật bổ sung Endpoint động tiếp nhận Query String từ Client gửi lên vào lớp điều phối
+                    <code>ProductControllerV2.java</code>:</p>
                 <div class="code-container">
                     <div class="code-lang">Java</div>
                     <pre><code>    @GetMapping("/page")
@@ -1189,18 +1293,21 @@ public Page<Product> getProductsWithPagination(int page, int size, String sortBy
         return ResponseEntity.ok(productService.getProductsWithPagination(page, size, sortBy));
     }</code></pre>
                 </div>
-                <p>*Nghiệm thu thực tế:* Truy cập kiểm thử qua trình duyệt theo mẫu liên kết sau để xem dữ liệu cấu trúc metadata phân trang hoàn chỉnh: <code>http://localhost:8081/v2/products/page?page=0&size=2&sortBy=price</code></p>
+                <p>*Nghiệm thu thực tế:* Truy cập kiểm thử qua trình duyệt theo mẫu liên kết sau để xem dữ liệu cấu trúc
+                    metadata phân trang hoàn chỉnh:
+                    <code>http://localhost:8081/v2/products/page?page=0&size=2&sortBy=price</code></p>
             </div>
-            
+
             <div class="callout-note">
                 <h4><i class="fa-solid fa-pencil"></i>Bài tập rèn luyện nâng cao về nhà</h4>
                 <ul>
                     <li>Hoàn thiện đầy đủ các API quan hệ Category - Product (hoặc Class - Student).</li>
                     <li>Viết <code>@Query</code> đếm số lượng sản phẩm theo từng danh mục.</li>
-                    <li>Đọc tài liệu về <strong>N+1 query problem</strong> và viết giải thích ngắn (200 từ) về cách phát hiện và xử lý.</li>
+                    <li>Đọc tài liệu về <strong>N+1 query problem</strong> và viết giải thích ngắn (200 từ) về cách phát
+                        hiện và xử lý.</li>
                 </ul>
             </div>
-            
+
             <div class="callout-assess">
                 <h4><i class="fa-solid fa-check-double"></i>Tiêu chí đánh giá</h4>
                 <ul>
@@ -1214,12 +1321,17 @@ public Page<Product> getProductsWithPagination(int page, int size, String sortBy
 
         <!-- CHI TIẾT BUỔI 6 -->
         <section id="buoi-6" class="doc-section">
-            <h2 class="section-title"><i class="fa-solid fa-shield-halved"></i>Buổi 6: Khai Phá Màng Lọc Validation Đầu Vào & Bộ Xử Lý Lỗi Toàn Cục Tập Trung</h2>
+            <h2 class="section-title"><i class="fa-solid fa-shield-halved"></i>Buổi 6: Khai Phá Màng Lọc Validation Đầu
+                Vào & Bộ Xử Lý Lỗi Toàn Cục Tập Trung</h2>
             <h3 class="subsection-title">6.1 Tóm tắt Lý thuyết & Kiến thức Cốt lõi</h3>
-            <p>Nguyên tắc vàng của lập trình viên: <em>"Không bao giờ tin tưởng hoàn toàn vào dữ liệu do phía Client gửi lên"</em>. Việc tích hợp bộ thư viện <strong>Bean Validation</strong> hỗ trợ định cấu hình màng lọc chặt chẽ ngay tại lớp Controller, kết hợp bộ xử lý ngoại lệ tập trung <strong>`@RestControllerAdvice`</strong> giúp bao bọc an toàn và chuyên nghiệp hóa hệ thống phản hồi thông điệp lỗi.</p>
-            
+            <p>Nguyên tắc vàng của lập trình viên: <em>"Không bao giờ tin tưởng hoàn toàn vào dữ liệu do phía Client gửi
+                    lên"</em>. Việc tích hợp bộ thư viện <strong>Bean Validation</strong> hỗ trợ định cấu hình màng lọc
+                chặt chẽ ngay tại lớp Controller, kết hợp bộ xử lý ngoại lệ tập trung
+                <strong>`@RestControllerAdvice`</strong> giúp bao bọc an toàn và chuyên nghiệp hóa hệ thống phản hồi
+                thông điệp lỗi.</p>
+
             <h3 class="subsection-title">6.2 Hướng dẫn thực hành từng bước (Step-by-Step)</h3>
-            
+
             <div class="step-block">
                 <div class="step-title">Bước 1: Khai báo nạp thư viện kiểm tra dữ liệu đầu vào vào file pom.xml</div>
                 <div class="code-container">
@@ -1232,7 +1344,8 @@ public Page<Product> getProductsWithPagination(int page, int size, String sortBy
             </div>
 
             <div class="step-block">
-                <div class="step-title">Bước 2: Thiết lập khai báo các luật ràng buộc trực tiếp trên Entity thuộc tính</div>
+                <div class="step-title">Bước 2: Thiết lập khai báo các luật ràng buộc trực tiếp trên Entity thuộc tính
+                </div>
                 <p>Cập nhật tệp tin mô hình lớp dữ liệu <code>Product.java</code> chèn thêm điều kiện bọc lỗi:</p>
                 <div class="code-container">
                     <div class="code-lang">Java</div>
@@ -1252,7 +1365,8 @@ public Page<Product> getProductsWithPagination(int page, int size, String sortBy
 
             <div class="step-block">
                 <div class="step-title">Bước 3: Viết bộ xử lý thu gom và cấu trúc lại mã lỗi toàn cục tập trung</div>
-                <p>Tạo một gói package mới mang tên <code>com.fpoly.lab.exception</code>. Khởi tạo một lớp Java mang tên <code>GlobalExceptionHandler.java</code> đảm nhận nhiệm vụ chuyển đổi mã lỗi mặc định:</p>
+                <p>Tạo một gói package mới mang tên <code>com.fpoly.lab.exception</code>. Khởi tạo một lớp Java mang tên
+                    <code>GlobalExceptionHandler.java</code> đảm nhận nhiệm vụ chuyển đổi mã lỗi mặc định:</p>
                 <div class="code-container">
                     <div class="code-lang">Java</div>
                     <pre><code>package com.fpoly.lab.exception;
@@ -1284,18 +1398,21 @@ public class GlobalExceptionHandler {
     }
 }</code></pre>
                 </div>
-                <p>Đừng quên chèn thêm từ khóa Annotation kích hoạt <code>@Valid</code> đứng ngay trước tham số <code>@RequestBody Product product</code> trong hàm lưu trữ tại lớp Controller để kích hoạt luật chặn bảo vệ.</p>
+                <p>Đừng quên chèn thêm từ khóa Annotation kích hoạt <code>@Valid</code> đứng ngay trước tham số
+                    <code>@RequestBody Product product</code> trong hàm lưu trữ tại lớp Controller để kích hoạt luật
+                    chặn bảo vệ.</p>
             </div>
-            
+
             <div class="callout-note">
                 <h4><i class="fa-solid fa-pencil"></i>Bài tập rèn luyện nâng cao về nhà</h4>
                 <ul>
                     <li>Bổ sung validation cho Request cập nhật (có thể khác với Request tạo mới).</li>
-                    <li>Tạo custom annotation <code>@ValidPhoneNumber</code> cho số điện thoại Việt Nam (10 số, bắt đầu bằng 0).</li>
+                    <li>Tạo custom annotation <code>@ValidPhoneNumber</code> cho số điện thoại Việt Nam (10 số, bắt đầu
+                        bằng 0).</li>
                     <li>Test ít nhất 5 trường hợp lỗi khác nhau qua Postman và lưu vào collection.</li>
                 </ul>
             </div>
-            
+
             <div class="callout-assess">
                 <h4><i class="fa-solid fa-check-double"></i>Tiêu chí đánh giá</h4>
                 <ul>
@@ -1309,15 +1426,20 @@ public class GlobalExceptionHandler {
 
         <!-- CHI TIẾT BUỔI 7 -->
         <section id="buoi-7" class="doc-section">
-            <h2 class="section-title"><i class="fa-solid fa-file-code"></i>Buổi 7: Triển Khai DTO Pattern An Toàn Thông Tin & Ghi Nhật Ký Hệ Thống</h2>
+            <h2 class="section-title"><i class="fa-solid fa-file-code"></i>Buổi 7: Triển Khai DTO Pattern An Toàn Thông
+                Tin & Ghi Nhật Ký Hệ Thống</h2>
             <h3 class="subsection-title">7.1 Tóm tắt Lý thuyết & Kiến thức Cốt lõi</h3>
-            <p>Việc phơi bày nguyên trạng thực thể ánh xạ DB ra ngoài môi trường mạng tiềm ẩn nguy cơ rò rỉ dữ liệu hệ thống nghiêm trọng. Thiết kế **DTO (Data Transfer Object)** đóng vai trò tạo lớp vỏ bọc lọc dữ liệu trung chuyển an toàn. Kết hợp giải pháp ghi log qua **SLF4J** giúp thu thập lịch sử vận hành chuẩn xác thay vì lệnh thô sơ phá vỡ hiệu năng `System.out.println()`.</p>
-            
+            <p>Việc phơi bày nguyên trạng thực thể ánh xạ DB ra ngoài môi trường mạng tiềm ẩn nguy cơ rò rỉ dữ liệu hệ
+                thống nghiêm trọng. Thiết kế **DTO (Data Transfer Object)** đóng vai trò tạo lớp vỏ bọc lọc dữ liệu
+                trung chuyển an toàn. Kết hợp giải pháp ghi log qua **SLF4J** giúp thu thập lịch sử vận hành chuẩn xác
+                thay vì lệnh thô sơ phá vỡ hiệu năng `System.out.println()`.</p>
+
             <h3 class="subsection-title">7.2 Hướng dẫn thực hành từng bước (Step-by-Step)</h3>
-            
+
             <div class="step-block">
                 <div class="step-title">Bước 1: Khởi tạo lớp bọc dữ liệu trung chuyển an toàn ProductDTO</div>
-                <p>Tạo một package mới mang tên <code>com.fpoly.lab.dto</code>. Khởi tạo một lớp Java mang tên <code>ProductDTO.java</code> loại bỏ hoàn toàn các trường dữ liệu nhạy cảm nội bộ:</p>
+                <p>Tạo một package mới mang tên <code>com.fpoly.lab.dto</code>. Khởi tạo một lớp Java mang tên
+                    <code>ProductDTO.java</code> loại bỏ hoàn toàn các trường dữ liệu nhạy cảm nội bộ:</p>
                 <div class="code-container">
                     <div class="code-lang">Java</div>
                     <pre><code>package com.fpoly.lab.dto;
@@ -1334,8 +1456,10 @@ public class ProductDTO {
             </div>
 
             <div class="step-block">
-                <div class="step-title">Bước 2: Áp dụng quy trình Mapping chuyển đổi thủ công kết hợp ghi Log hệ thống</div>
-                <p>Khởi tạo một lớp Java dịch vụ xử lý riêng biệt mang tên <code>ProductBackupService.java</code> nằm trọn trong gói package <code>service</code>:</p>
+                <div class="step-title">Bước 2: Áp dụng quy trình Mapping chuyển đổi thủ công kết hợp ghi Log hệ thống
+                </div>
+                <p>Khởi tạo một lớp Java dịch vụ xử lý riêng biệt mang tên <code>ProductBackupService.java</code> nằm
+                    trọn trong gói package <code>service</code>:</p>
                 <div class="code-container">
                     <div class="code-lang">Java</div>
                     <pre><code>package com.fpoly.lab.service;
@@ -1376,7 +1500,7 @@ public class ProductBackupService {
 }</code></pre>
                 </div>
             </div>
-            
+
             <div class="callout-note">
                 <h4><i class="fa-solid fa-pencil"></i>Bài tập rèn luyện nâng cao về nhà</h4>
                 <ul>
@@ -1386,7 +1510,7 @@ public class ProductBackupService {
                     <li>Test chạy với profile dev và profile prod, chụp ảnh log để chứng minh.</li>
                 </ul>
             </div>
-            
+
             <div class="callout-assess">
                 <h4><i class="fa-solid fa-check-double"></i>Tiêu chí đánh giá</h4>
                 <ul>
@@ -1400,37 +1524,56 @@ public class ProductBackupService {
 
         <!-- CHI TIẾT BUỔI 8 -->
         <section id="buoi-8" class="doc-section">
-            <h2 class="section-title"><i class="fa-solid fa-rocket"></i>Buổi 8: Đóng Gói Mã Nguồn Thành File Cứng .JAR & Triển Khai Phát Hành Lên Môi Trường Đám Mây</h2>
+            <h2 class="section-title"><i class="fa-solid fa-rocket"></i>Buổi 8: Đóng Gói Mã Nguồn Thành File Cứng .JAR &
+                Triển Khai Phát Hành Lên Môi Trường Đám Mây</h2>
             <h3 class="subsection-title">8.1 Tóm tắt Lý thuyết & Kiến thức Cốt lõi</h3>
-            <p>Quy trình đóng gói nén toàn bộ mã nguồn Bytecode Java kết hợp tài nguyên thành một tệp thực thi duy nhất dạng tệp tin **.JAR** giúp ứng dụng vận hành độc lập. Tích hợp giải pháp ảo hóa môi trường qua tệp tin **Dockerfile** giúp phần mềm cách ly hoàn toàn lỗi lệch phiên bản hệ điều hành khi deploy lên internet.</p>
-            
+            <p>Quy trình đóng gói nén toàn bộ mã nguồn Bytecode Java kết hợp tài nguyên thành một tệp thực thi duy nhất
+                dạng tệp tin **.JAR** giúp ứng dụng vận hành độc lập. Tích hợp giải pháp ảo hóa môi trường qua tệp tin
+                **Dockerfile** giúp phần mềm cách ly hoàn toàn lỗi lệch phiên bản hệ điều hành khi deploy lên internet.
+            </p>
+
             <h3 class="subsection-title">8.2 Hướng dẫn thực hành từng bước (Step-by-Step)</h3>
-            
+
             <h3 class="subsection-title">8.1 Đề xuất Mini Project (Chọn 1)</h3>
             <div class="step-block" style="border-left-color: #3b82f6;">
                 <ul>
-                    <li><strong>Đề 1 - Quản lý Thư viện:</strong> Sách, Tác giả, Thể loại, Phiếu mượn. Có CRUD, validation, phân trang, log, exception handling.</li>
-                    <li><strong>Đề 2 - Quản lý Sinh viên - Khóa học:</strong> Sinh viên, Lớp, Khóa học. Sinh viên có thể đăng ký nhiều khóa học, có điểm số.</li>
-                    <li><strong>Đề 3 - Blog cá nhân:</strong> Bài viết, Chuyên mục, Tag, Bình luận. Có API tìm kiếm theo tag, lọc theo chuyên mục.</li>
-                    <li><strong>Đề 4 - Quản lý sản phẩm:</strong> Sản phẩm, Danh mục, Đơn hàng, Khách hàng. Có thống kê doanh thu cơ bản.</li>
+                    <li><strong>Đề 1 - Quản lý Thư viện:</strong> Sách, Tác giả, Thể loại, Phiếu mượn. Có CRUD,
+                        validation, phân trang, log, exception handling.</li>
+                    <li><strong>Đề 2 - Quản lý Sinh viên - Khóa học:</strong> Sinh viên, Lớp, Khóa học. Sinh viên có thể
+                        đăng ký nhiều khóa học, có điểm số.</li>
+                    <li><strong>Đề 3 - Blog cá nhân:</strong> Bài viết, Chuyên mục, Tag, Bình luận. Có API tìm kiếm theo
+                        tag, lọc theo chuyên mục.</li>
+                    <li><strong>Đề 4 - Quản lý sản phẩm:</strong> Sản phẩm, Danh mục, Đơn hàng, Khách hàng. Có thống kê
+                        doanh thu cơ bản.</li>
                 </ul>
-                <p style="margin-top: 12px;"><strong>Yêu cầu chung:</strong> Có ít nhất 4 entity với quan hệ rõ ràng; Đầy đủ CRUD; Có validation, exception handling; Phân trang ít nhất 1 API; Có chia DTO; Có Log; Có README.md trên GitHub và có Postman Collection đi kèm.</p>
+                <p style="margin-top: 12px;"><strong>Yêu cầu chung:</strong> Có ít nhất 4 entity với quan hệ rõ ràng;
+                    Đầy đủ CRUD; Có validation, exception handling; Phân trang ít nhất 1 API; Có chia DTO; Có Log; Có
+                    README.md trên GitHub và có Postman Collection đi kèm.</p>
             </div>
 
             <h3 class="subsection-title">8.2 Hướng dẫn Build & Deploy (Step-by-Step)</h3>
             <div class="step-block">
-                <div class="step-title">Bước 1: Thực hiện lệnh đóng gói ứng dụng bằng bộ công cụ điều khiển Maven Lifecycle</div>
-                <p>Nhìn sang thanh công cụ dọc bên phải màn hình IntelliJ IDEA, click chuột trái mở rộng tab quản lý công cụ **Maven** &rarr; Chọn mở thư mục con **Lifecycle** &rarr; Thực hiện kích hoạt nhấp đúp chuột liên tiếp tuần tự vào hai lệnh điều khiển hành động cốt lõi sau:</p>
+                <div class="step-title">Bước 1: Thực hiện lệnh đóng gói ứng dụng bằng bộ công cụ điều khiển Maven
+                    Lifecycle</div>
+                <p>Nhìn sang thanh công cụ dọc bên phải màn hình IntelliJ IDEA, click chuột trái mở rộng tab quản lý
+                    công cụ **Maven** &rarr; Chọn mở thư mục con **Lifecycle** &rarr; Thực hiện kích hoạt nhấp đúp chuột
+                    liên tiếp tuần tự vào hai lệnh điều khiển hành động cốt lõi sau:</p>
                 <ol>
-                    <li>Nhấp đúp chuột vào tiến trình lệnh <strong>clean</strong> (Hệ thống quét dọn xóa sạch các tệp tin lưu cache thừa cũ).</li>
-                    <li>Nhấp đúp chuột vào tiến trình lệnh <strong>package</strong> (Hệ thống chạy tự động kiểm thử biên dịch và thực hiện nén dự án).</li>
+                    <li>Nhấp đúp chuột vào tiến trình lệnh <strong>clean</strong> (Hệ thống quét dọn xóa sạch các tệp
+                        tin lưu cache thừa cũ).</li>
+                    <li>Nhấp đúp chuột vào tiến trình lệnh <strong>package</strong> (Hệ thống chạy tự động kiểm thử biên
+                        dịch và thực hiện nén dự án).</li>
                 </ol>
-                <p>Theo dõi luồng log chạy ra đạt chữ thông báo thành công màu xanh: <code>[INFO] BUILD SUCCESS</code>. Truy cập thư mục con vừa tự động sinh ra mang tên là <code>/target</code> nằm ở cây thư mục dự án xác nhận tệp tin cứng: <code>sof3022-lab-0.0.1-SNAPSHOT.jar</code>.</p>
+                <p>Theo dõi luồng log chạy ra đạt chữ thông báo thành công màu xanh: <code>[INFO] BUILD SUCCESS</code>.
+                    Truy cập thư mục con vừa tự động sinh ra mang tên là <code>/target</code> nằm ở cây thư mục dự án
+                    xác nhận tệp tin cứng: <code>sof3022-lab-0.0.1-SNAPSHOT.jar</code>.</p>
             </div>
 
             <div class="step-block">
                 <div class="step-title">Bước 2: Thiết lập file cấu hình đóng gói Container ảo hóa Dockerfile</div>
-                <p>Tại khu vực thư mục gốc ngoài cùng cao nhất của dự án (Vị trí nằm ngang hàng so với file pom.xml), click chuột phải chọn khởi tạo file mới đặt tên chính xác hoàn toàn là `Dockerfile`. Viết nội dung thiết lập chi tiết sau:</p>
+                <p>Tại khu vực thư mục gốc ngoài cùng cao nhất của dự án (Vị trí nằm ngang hàng so với file pom.xml),
+                    click chuột phải chọn khởi tạo file mới đặt tên chính xác hoàn toàn là `Dockerfile`. Viết nội dung
+                    thiết lập chi tiết sau:</p>
                 <div class="code-container">
                     <div class="code-lang">Dockerfile</div>
                     <pre><code># Bước 1: Sử dụng cấu trúc Base Image chứa môi trường chạy Java OpenJDK 17 xây dựng trên nhân Linux rút gọn
@@ -1451,17 +1594,27 @@ EXPOSE 8081</code></pre>
             </div>
 
             <div class="step-block">
-                <div class="step-title">Bước 3: Đẩy mã nguồn lên nền tảng đám mây GitHub và kết nối thực thi Deploy trực tuyến</div>
-                <p>Đẩy toàn bộ dự án lên một Repository cá nhân trạng thái công khai thiết lập trên trang GitHub cá nhân. Sử dụng trình duyệt truy cập vào hệ thống đám mây quản lý <strong>Render.com</strong>, tiến hành chọn liên kết tài khoản GitHub cá nhân và nhấp chọn dòng lệnh khởi tạo dịch vụ **New Web Service**.</p>
-                <p>Hệ thống đám mây sẽ tự động phát hiện tệp tin `Dockerfile` có sẵn trong dự án để tự cấu hình quy trình nạp môi trường cách ly tự động hoàn toàn. Chờ đợi tiến trình cài đặt và biên dịch tự động diễn ra trong vòng 2-3 phút, Render sẽ trực tiếp cấp phát một đường link liên kết URL dạng công khai chạy trực tuyến (Live) ổn định thực tế trên internet: <code>https://tên-dự-án-của-bạn.onrender.com/v2/products</code>.</p>
+                <div class="step-title">Bước 3: Đẩy mã nguồn lên nền tảng đám mây GitHub và kết nối thực thi Deploy trực
+                    tuyến</div>
+                <p>Đẩy toàn bộ dự án lên một Repository cá nhân trạng thái công khai thiết lập trên trang GitHub cá
+                    nhân. Sử dụng trình duyệt truy cập vào hệ thống đám mây quản lý <strong>Render.com</strong>, tiến
+                    hành chọn liên kết tài khoản GitHub cá nhân và nhấp chọn dòng lệnh khởi tạo dịch vụ **New Web
+                    Service**.</p>
+                <p>Hệ thống đám mây sẽ tự động phát hiện tệp tin `Dockerfile` có sẵn trong dự án để tự cấu hình quy
+                    trình nạp môi trường cách ly tự động hoàn toàn. Chờ đợi tiến trình cài đặt và biên dịch tự động diễn
+                    ra trong vòng 2-3 phút, Render sẽ trực tiếp cấp phát một đường link liên kết URL dạng công khai chạy
+                    trực tuyến (Live) ổn định thực tế trên internet:
+                    <code>https://tên-dự-án-của-bạn.onrender.com/v2/products</code>.</p>
             </div>
         </section>
 
         <!-- PHẦN D: TIÊU CHÍ ĐÁNH GIÁ -->
         <section id="danh-gia" class="doc-section">
-            <h2 class="section-title"><i class="fa-solid fa-award"></i>C. Tiêu Chí Chấm Điểm & Đánh Giá Tổng Kết Học Phần</h2>
-            <p>Hệ thống khung điểm đánh giá năng lực sản phẩm đầu ra Mini Project tổng kết cuối khóa của sinh viên Xưởng phần mềm ứng dụng được phân bổ chi tiết theo bảng barem điểm chuẩn hóa sau đây:</p>
-            
+            <h2 class="section-title"><i class="fa-solid fa-award"></i>C. Tiêu Chí Chấm Điểm & Đánh Giá Tổng Kết Học
+                Phần</h2>
+            <p>Hệ thống khung điểm đánh giá năng lực sản phẩm đầu ra Mini Project tổng kết cuối khóa của sinh viên Xưởng
+                phần mềm ứng dụng được phân bổ chi tiết theo bảng barem điểm chuẩn hóa sau đây:</p>
+
             <div class="table-responsive">
                 <table>
                     <thead>
@@ -1476,25 +1629,33 @@ EXPOSE 8081</code></pre>
                         <tr>
                             <td><strong>1</strong></td>
                             <td><strong>Kiến trúc & Cấu trúc Mã nguồn</strong></td>
-                            <td>Mã nguồn tổ chức phân tách package gọn gàng, áp dụng chuẩn mực mô hình kiến trúc 3 lớp biệt lập độc lập (Controller - Service - Repository). Toàn bộ các nạp dependencies phụ thuộc bắt buộc phải triển khai qua hàm khởi tạo Constructor Injection.</td>
+                            <td>Mã nguồn tổ chức phân tách package gọn gàng, áp dụng chuẩn mực mô hình kiến trúc 3 lớp
+                                biệt lập độc lập (Controller - Service - Repository). Toàn bộ các nạp dependencies phụ
+                                thuộc bắt buộc phải triển khai qua hàm khởi tạo Constructor Injection.</td>
                             <td><span class="badge badge-primary">3.0 Điểm</span></td>
                         </tr>
                         <tr>
                             <td><strong>2</strong></td>
                             <td><strong>Liên kết Cơ sở dữ liệu & Phân trang</strong></td>
-                            <td>Thiết lập chính xác mối quan hệ thực thể quan hệ ràng buộc (Khóa ngoại Foreign Key dưới MySQL Database). Triển khai thành công tính năng phân trang (Pagination) dữ liệu lớn từ phía API Server trả về đầy đủ metadata cho client.</td>
+                            <td>Thiết lập chính xác mối quan hệ thực thể quan hệ ràng buộc (Khóa ngoại Foreign Key dưới
+                                MySQL Database). Triển khai thành công tính năng phân trang (Pagination) dữ liệu lớn từ
+                                phía API Server trả về đầy đủ metadata cho client.</td>
                             <td><span class="badge badge-primary">2.0 Điểm</span></td>
                         </tr>
                         <tr>
                             <td><strong>3</strong></td>
                             <td><strong>Màng lọc Validation & Bắt lỗi tập trung</strong></td>
-                            <td>Tích hợp đầy đủ bộ lọc kiểm tra dữ liệu Bean Validation chặn đứng dữ liệu rác đầu vào. Cấu hình thành công lớp RestControllerAdvice bọc bắt lỗi ngoại lệ toàn cục hiển thị cấu trúc thông điệp JSON đồng bộ.</td>
+                            <td>Tích hợp đầy đủ bộ lọc kiểm tra dữ liệu Bean Validation chặn đứng dữ liệu rác đầu vào.
+                                Cấu hình thành công lớp RestControllerAdvice bọc bắt lỗi ngoại lệ toàn cục hiển thị cấu
+                                trúc thông điệp JSON đồng bộ.</td>
                             <td><span class="badge badge-primary">2.0 Điểm</span></td>
                         </tr>
                         <tr>
                             <td><strong>4</strong></td>
                             <td><strong>Đóng gói & Triển khai Đám mây Live</strong></td>
-                            <td>Ứng dụng xuất file cứng .JAR vận hành độc lập tốt không lỗi compile. Thiết lập tệp tin cấu hình Dockerfile chuẩn hóa và triển khai phát hành thành công ứng dụng cấp phát URL Live công khai hoạt động ổn định trên internet.</td>
+                            <td>Ứng dụng xuất file cứng .JAR vận hành độc lập tốt không lỗi compile. Thiết lập tệp tin
+                                cấu hình Dockerfile chuẩn hóa và triển khai phát hành thành công ứng dụng cấp phát URL
+                                Live công khai hoạt động ổn định trên internet.</td>
                             <td><span class="badge badge-success">3.0 Điểm</span></td>
                         </tr>
                     </tbody>
@@ -1504,22 +1665,29 @@ EXPOSE 8081</code></pre>
 
         <!-- PHẦN E: PHỤ LỤC -->
         <section id="phu-luc" class="doc-section">
-            <h2 class="section-title"><i class="fa-solid fa-book-open"></i>D. Phụ Lục: Tài Liệu Tham Khảo & Lộ Trình</h2>
-            
+            <h2 class="section-title"><i class="fa-solid fa-book-open"></i>D. Phụ Lục: Tài Liệu Tham Khảo & Lộ Trình
+            </h2>
+
             <h3 class="subsection-title">1. Tài liệu tham khảo khuyến nghị</h3>
             <ul>
-                <li><strong>Tài liệu chính thức:</strong> <a href="https://spring.io/guides" target="_blank">Spring Guides</a> và <a href="https://docs.spring.io/spring-boot/" target="_blank">Spring Boot Reference</a></li>
+                <li><strong>Tài liệu chính thức:</strong> <a href="https://spring.io/guides" target="_blank">Spring
+                        Guides</a> và <a href="https://docs.spring.io/spring-boot/" target="_blank">Spring Boot
+                        Reference</a></li>
                 <li><strong>Khóa học & Bài viết:</strong> Baeldung (rất chi tiết về Spring), Spring Academy.</li>
-                <li><strong>Cộng đồng:</strong> Stack Overflow, Reddit (r/java, r/SpringBoot), các nhóm Java/Spring trên Facebook tiếng Việt.</li>
+                <li><strong>Cộng đồng:</strong> Stack Overflow, Reddit (r/java, r/SpringBoot), các nhóm Java/Spring trên
+                    Facebook tiếng Việt.</li>
             </ul>
 
             <h3 class="subsection-title">2. Lộ trình học tiếp sau khóa học (Nâng cao)</h3>
             <ul>
                 <li><strong>Spring Security và JWT:</strong> Xác thực và phân quyền, bảo mật REST API.</li>
-                <li><strong>Testing nâng cao:</strong> Integration test với <code>@SpringBootTest</code>, TestContainers.</li>
-                <li><strong>Spring Boot Actuator & Monitoring:</strong> Giám sát tình trạng ứng dụng (Health check, metrics).</li>
+                <li><strong>Testing nâng cao:</strong> Integration test với <code>@SpringBootTest</code>,
+                    TestContainers.</li>
+                <li><strong>Spring Boot Actuator & Monitoring:</strong> Giám sát tình trạng ứng dụng (Health check,
+                    metrics).</li>
                 <li><strong>Caching:</strong> Tối ưu hóa hiệu năng truy vấn với Redis.</li>
-                <li><strong>Spring Cloud & Microservices:</strong> Service discovery, API Gateway, Message Queue (RabbitMQ/Kafka).</li>
+                <li><strong>Spring Cloud & Microservices:</strong> Service discovery, API Gateway, Message Queue
+                    (RabbitMQ/Kafka).</li>
                 <li><strong>CI/CD:</strong> Tự động hóa build và deploy bằng GitHub Actions / GitLab CI.</li>
             </ul>
         </section>
@@ -1544,7 +1712,7 @@ EXPOSE 8081</code></pre>
             document.querySelectorAll('section[id]').forEach((section) => {
                 observer.observe(section);
             });
-            
+
             // Add Copy Button logic
             document.querySelectorAll('.code-container').forEach(container => {
                 const header = container.querySelector('.code-lang');
@@ -1571,4 +1739,5 @@ EXPOSE 8081</code></pre>
         });
     </script>
 </body>
+
 </html>
