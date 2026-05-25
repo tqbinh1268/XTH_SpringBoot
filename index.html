@@ -427,6 +427,54 @@
         .badge-primary { background-color: #e0f2fe; color: #0369a1; }
         .badge-success { background-color: #dcfce7; color: #15803d; }
 
+        
+        /* --- COPY BUTTON --- */
+        .copy-btn {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #cdd6f4;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            outline: none;
+        }
+        .copy-btn:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+        
+        /* --- CALLOUT ASSESS --- */
+        .callout-assess {
+            background-color: #f0fdf4;
+            border-left: 4px solid #16a34a;
+            border-radius: 0 8px 8px 0;
+            padding: 16px;
+            margin: 20px 0;
+        }
+        .callout-assess h4 {
+            color: #166534;
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .callout-assess ul {
+            margin-bottom: 0;
+            padding-left: 20px;
+        }
+        .callout-assess li {
+            color: #15803d;
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+        }
+
         /* Smooth scrolling */
         html {
             scroll-behavior: smooth;
@@ -455,8 +503,9 @@
             <li><a href="#buoi-7"><i class="fa-solid fa-file-code"></i>Buổi 7: DTO & Ghi Log</a></li>
             <li><a href="#buoi-8"><i class="fa-solid fa-rocket"></i>Buổi 8: Mini Project & Deploy</a></li>
             
-            <div class="menu-item-header">Đánh Giá</div>
-            <li><a href="#phu-luc"><i class="fa-solid fa-award"></i>Tiêu Chí Đánh Giá</a></li>
+            <div class="menu-item-header">Tổng Kết & Phụ Lục</div>
+            <li><a href="#danh-gia"><i class="fa-solid fa-award"></i>Tiêu Chí Đánh Giá</a></li>
+            <li><a href="#phu-luc"><i class="fa-solid fa-book-open"></i>Tài Liệu & Lộ Trình</a></li>
         </ul>
     </nav>
 
@@ -664,7 +713,20 @@ public class HelloController {
 
             <div class="callout-note">
                 <h4><i class="fa-solid fa-pencil"></i>Bài tập rèn luyện nâng cao về nhà</h4>
-                <p>Tạo thêm 2 endpoint mới: <code>/info</code> trả về thông tin sinh viên cá nhân và <code>/time</code> trả về thời gian thực của máy chủ. Khởi tạo Git loại trừ .gitignore chuẩn Java và đẩy toàn bộ mã nguồn lên GitHub cá nhân công khai.</p>
+                <ul>
+                    <li>Tạo thêm 3 endpoint: <code>/info</code> (thông tin cá nhân), <code>/time</code> (thời gian hiện tại), <code>/math/sum?a=5&b=3</code> (tổng 2 số).</li>
+                    <li>Đẩy code lên GitHub repo cá nhân (tạo repo mới, gắn .gitignore cho Java).</li>
+                    <li>Đọc thêm về Maven lifecycle (compile, test, package, install) và viết tóm tắt khoảng 200 từ.</li>
+                </ul>
+            </div>
+            
+            <div class="callout-assess">
+                <h4><i class="fa-solid fa-check-double"></i>Tiêu chí đánh giá</h4>
+                <ul>
+                    <li>Project khởi chạy được, không lỗi compile (4 điểm).</li>
+                    <li>Đủ 3 endpoint theo yêu cầu, trả đúng kết quả (4 điểm).</li>
+                    <li>Đẩy lên GitHub đúng format, có README ngắn (2 điểm).</li>
+                </ul>
             </div>
         </section>
 
@@ -777,6 +839,24 @@ public class ProductController {
                 </div>
                 <p>Bấm chọn nút <strong>Send</strong> kiểm tra mã trạng thái góc màn hình phản hồi chuẩn <code>201 Created</code>.</p>
             </div>
+            
+            <div class="callout-note">
+                <h4><i class="fa-solid fa-pencil"></i>Bài tập rèn luyện nâng cao về nhà</h4>
+                <ul>
+                    <li>Bổ sung endpoint <code>GET /api/products/top?n=5</code> trả về 5 sản phẩm nổi bật.</li>
+                    <li>Bổ sung endpoint <code>GET /api/products/statistics</code> trả về thống kê: tổng số, giá trung bình, cao nhất, thấp nhất.</li>
+                    <li>Tạo collection Postman lưu lại các request đã test, export ra file JSON và đẩy lên GitHub.</li>
+                </ul>
+            </div>
+            
+            <div class="callout-assess">
+                <h4><i class="fa-solid fa-check-double"></i>Tiêu chí đánh giá</h4>
+                <ul>
+                    <li>Đầy đủ 6 endpoint cơ bản, hoạt động đúng (5 điểm).</li>
+                    <li>2 endpoint nâng cao trả đúng dữ liệu (3 điểm).</li>
+                    <li>Có file Postman collection được commit cùng source code (2 điểm).</li>
+                </ul>
+            </div>
         </section>
 
         <!-- CHI TIẾT BUỔI 3 -->
@@ -887,6 +967,25 @@ public class ProductControllerV2 {
 }</code></pre>
                 </div>
             </div>
+            
+            <div class="callout-note">
+                <h4><i class="fa-solid fa-pencil"></i>Bài tập rèn luyện nâng cao về nhà</h4>
+                <ul>
+                    <li>Hoàn thiện refactor project Product 3 lớp đầy đủ.</li>
+                    <li>Viết tối thiểu 3 unit test cho ProductService: test khi tìm thấy sản phẩm, khi không tìm thấy, khi thêm mới hợp lệ.</li>
+                    <li>Vẽ sơ đồ class diagram đơn giản (có thể vẽ tay rồi chụp ảnh) thể hiện quan hệ giữa 3 tầng.</li>
+                </ul>
+            </div>
+            
+            <div class="callout-assess">
+                <h4><i class="fa-solid fa-check-double"></i>Tiêu chí đánh giá</h4>
+                <ul>
+                    <li>Project chia đúng 3 tầng, package gọn gàng (4 điểm).</li>
+                    <li>Sử dụng constructor injection (không dùng @Autowired field) (2 điểm).</li>
+                    <li>Có ít nhất 3 unit test pass thành công (3 điểm).</li>
+                    <li>Có sơ đồ class diagram đính kèm (1 điểm).</li>
+                </ul>
+            </div>
         </section>
 
         <!-- CHI TIẾT BUỔI 4 -->
@@ -996,6 +1095,25 @@ public interface ProductDbRepository extends JpaRepository<Product, Long> {
                 </div>
                 <p>Khởi chạy lại dự án, kiểm tra MySQL Workbench sẽ thấy bảng dữ liệu quan hệ tự động sinh ra một cách hoàn chỉnh.</p>
             </div>
+            
+            <div class="callout-note">
+                <h4><i class="fa-solid fa-pencil"></i>Bài tập rèn luyện nâng cao về nhà</h4>
+                <ul>
+                    <li>Tạo thêm entity <code>Course</code> (id, ten, soTinChi, moTa) và CourseRepository, viết CRUD đầy đủ.</li>
+                    <li>Viết các derived query: <code>findByNameContaining</code> (tìm theo tên có chứa từ khóa), <code>findBySoTinChiGreaterThan</code> (lọc theo số tín chỉ).</li>
+                    <li>Insert sẵn 10 record mẫu vào database (dùng file SQL hoặc CommandLineRunner).</li>
+                </ul>
+            </div>
+            
+            <div class="callout-assess">
+                <h4><i class="fa-solid fa-check-double"></i>Tiêu chí đánh giá</h4>
+                <ul>
+                    <li>Project kết nối được MySQL, tạo bảng tự động (3 điểm).</li>
+                    <li>CRUD Course hoạt động đầy đủ qua Postman (4 điểm).</li>
+                    <li>Derived query trả đúng kết quả (2 điểm).</li>
+                    <li>Có dữ liệu mẫu khi khởi động (1 điểm).</li>
+                </ul>
+            </div>
         </section>
 
         <!-- CHI TIẾT BUỔI 5 -->
@@ -1073,6 +1191,25 @@ public Page<Product> getProductsWithPagination(int page, int size, String sortBy
                 </div>
                 <p>*Nghiệm thu thực tế:* Truy cập kiểm thử qua trình duyệt theo mẫu liên kết sau để xem dữ liệu cấu trúc metadata phân trang hoàn chỉnh: <code>http://localhost:8081/v2/products/page?page=0&size=2&sortBy=price</code></p>
             </div>
+            
+            <div class="callout-note">
+                <h4><i class="fa-solid fa-pencil"></i>Bài tập rèn luyện nâng cao về nhà</h4>
+                <ul>
+                    <li>Hoàn thiện đầy đủ các API quan hệ Category - Product (hoặc Class - Student).</li>
+                    <li>Viết <code>@Query</code> đếm số lượng sản phẩm theo từng danh mục.</li>
+                    <li>Đọc tài liệu về <strong>N+1 query problem</strong> và viết giải thích ngắn (200 từ) về cách phát hiện và xử lý.</li>
+                </ul>
+            </div>
+            
+            <div class="callout-assess">
+                <h4><i class="fa-solid fa-check-double"></i>Tiêu chí đánh giá</h4>
+                <ul>
+                    <li>Quan hệ entity được thiết lập đúng, tạo bảng có khóa ngoại (3 điểm).</li>
+                    <li>API quan hệ trả đúng dữ liệu (3 điểm).</li>
+                    <li>Pagination hoạt động đúng, có metadata (2 điểm).</li>
+                    <li>Có @Query JPQL chạy đúng (2 điểm).</li>
+                </ul>
+            </div>
         </section>
 
         <!-- CHI TIẾT BUỔI 6 -->
@@ -1149,6 +1286,25 @@ public class GlobalExceptionHandler {
                 </div>
                 <p>Đừng quên chèn thêm từ khóa Annotation kích hoạt <code>@Valid</code> đứng ngay trước tham số <code>@RequestBody Product product</code> trong hàm lưu trữ tại lớp Controller để kích hoạt luật chặn bảo vệ.</p>
             </div>
+            
+            <div class="callout-note">
+                <h4><i class="fa-solid fa-pencil"></i>Bài tập rèn luyện nâng cao về nhà</h4>
+                <ul>
+                    <li>Bổ sung validation cho Request cập nhật (có thể khác với Request tạo mới).</li>
+                    <li>Tạo custom annotation <code>@ValidPhoneNumber</code> cho số điện thoại Việt Nam (10 số, bắt đầu bằng 0).</li>
+                    <li>Test ít nhất 5 trường hợp lỗi khác nhau qua Postman và lưu vào collection.</li>
+                </ul>
+            </div>
+            
+            <div class="callout-assess">
+                <h4><i class="fa-solid fa-check-double"></i>Tiêu chí đánh giá</h4>
+                <ul>
+                    <li>Validation đầy đủ trên 4 trường yêu cầu (3 điểm).</li>
+                    <li>GlobalExceptionHandler hoạt động, trả response chuẩn (3 điểm).</li>
+                    <li>Custom annotation hoạt động đúng (2 điểm).</li>
+                    <li>Postman collection có đủ ca lỗi (2 điểm).</li>
+                </ul>
+            </div>
         </section>
 
         <!-- CHI TIẾT BUỔI 7 -->
@@ -1220,6 +1376,26 @@ public class ProductBackupService {
 }</code></pre>
                 </div>
             </div>
+            
+            <div class="callout-note">
+                <h4><i class="fa-solid fa-pencil"></i>Bài tập rèn luyện nâng cao về nhà</h4>
+                <ul>
+                    <li>Tách DTO đầy đủ cho ít nhất 2 entity.</li>
+                    <li>Bổ sung log ở tất cả các action CRUD chính.</li>
+                    <li>Tạo profile <code>prod</code> với cấu hình MySQL khác và logging level WARN.</li>
+                    <li>Test chạy với profile dev và profile prod, chụp ảnh log để chứng minh.</li>
+                </ul>
+            </div>
+            
+            <div class="callout-assess">
+                <h4><i class="fa-solid fa-check-double"></i>Tiêu chí đánh giá</h4>
+                <ul>
+                    <li>DTO được tách đầy đủ cho ít nhất 2 entity (3 điểm).</li>
+                    <li>Mapping hoạt động đúng (bằng tay hoặc MapStruct) (2 điểm).</li>
+                    <li>Có log ở các action chính, ghi được ra file (3 điểm).</li>
+                    <li>Profile dev/prod hoạt động (2 điểm).</li>
+                </ul>
+            </div>
         </section>
 
         <!-- CHI TIẾT BUỔI 8 -->
@@ -1230,6 +1406,18 @@ public class ProductBackupService {
             
             <h3 class="subsection-title">8.2 Hướng dẫn thực hành từng bước (Step-by-Step)</h3>
             
+            <h3 class="subsection-title">8.1 Đề xuất Mini Project (Chọn 1)</h3>
+            <div class="step-block" style="border-left-color: #3b82f6;">
+                <ul>
+                    <li><strong>Đề 1 - Quản lý Thư viện:</strong> Sách, Tác giả, Thể loại, Phiếu mượn. Có CRUD, validation, phân trang, log, exception handling.</li>
+                    <li><strong>Đề 2 - Quản lý Sinh viên - Khóa học:</strong> Sinh viên, Lớp, Khóa học. Sinh viên có thể đăng ký nhiều khóa học, có điểm số.</li>
+                    <li><strong>Đề 3 - Blog cá nhân:</strong> Bài viết, Chuyên mục, Tag, Bình luận. Có API tìm kiếm theo tag, lọc theo chuyên mục.</li>
+                    <li><strong>Đề 4 - Quản lý sản phẩm:</strong> Sản phẩm, Danh mục, Đơn hàng, Khách hàng. Có thống kê doanh thu cơ bản.</li>
+                </ul>
+                <p style="margin-top: 12px;"><strong>Yêu cầu chung:</strong> Có ít nhất 4 entity với quan hệ rõ ràng; Đầy đủ CRUD; Có validation, exception handling; Phân trang ít nhất 1 API; Có chia DTO; Có Log; Có README.md trên GitHub và có Postman Collection đi kèm.</p>
+            </div>
+
+            <h3 class="subsection-title">8.2 Hướng dẫn Build & Deploy (Step-by-Step)</h3>
             <div class="step-block">
                 <div class="step-title">Bước 1: Thực hiện lệnh đóng gói ứng dụng bằng bộ công cụ điều khiển Maven Lifecycle</div>
                 <p>Nhìn sang thanh công cụ dọc bên phải màn hình IntelliJ IDEA, click chuột trái mở rộng tab quản lý công cụ **Maven** &rarr; Chọn mở thư mục con **Lifecycle** &rarr; Thực hiện kích hoạt nhấp đúp chuột liên tiếp tuần tự vào hai lệnh điều khiển hành động cốt lõi sau:</p>
@@ -1270,7 +1458,7 @@ EXPOSE 8081</code></pre>
         </section>
 
         <!-- PHẦN D: TIÊU CHÍ ĐÁNH GIÁ -->
-        <section id="phu-luc" class="doc-section">
+        <section id="danh-gia" class="doc-section">
             <h2 class="section-title"><i class="fa-solid fa-award"></i>C. Tiêu Chí Chấm Điểm & Đánh Giá Tổng Kết Học Phần</h2>
             <p>Hệ thống khung điểm đánh giá năng lực sản phẩm đầu ra Mini Project tổng kết cuối khóa của sinh viên Xưởng phần mềm ứng dụng được phân bổ chi tiết theo bảng barem điểm chuẩn hóa sau đây:</p>
             
@@ -1314,6 +1502,28 @@ EXPOSE 8081</code></pre>
             </div>
         </section>
 
+        <!-- PHẦN E: PHỤ LỤC -->
+        <section id="phu-luc" class="doc-section">
+            <h2 class="section-title"><i class="fa-solid fa-book-open"></i>D. Phụ Lục: Tài Liệu Tham Khảo & Lộ Trình</h2>
+            
+            <h3 class="subsection-title">1. Tài liệu tham khảo khuyến nghị</h3>
+            <ul>
+                <li><strong>Tài liệu chính thức:</strong> <a href="https://spring.io/guides" target="_blank">Spring Guides</a> và <a href="https://docs.spring.io/spring-boot/" target="_blank">Spring Boot Reference</a></li>
+                <li><strong>Khóa học & Bài viết:</strong> Baeldung (rất chi tiết về Spring), Spring Academy.</li>
+                <li><strong>Cộng đồng:</strong> Stack Overflow, Reddit (r/java, r/SpringBoot), các nhóm Java/Spring trên Facebook tiếng Việt.</li>
+            </ul>
+
+            <h3 class="subsection-title">2. Lộ trình học tiếp sau khóa học (Nâng cao)</h3>
+            <ul>
+                <li><strong>Spring Security và JWT:</strong> Xác thực và phân quyền, bảo mật REST API.</li>
+                <li><strong>Testing nâng cao:</strong> Integration test với <code>@SpringBootTest</code>, TestContainers.</li>
+                <li><strong>Spring Boot Actuator & Monitoring:</strong> Giám sát tình trạng ứng dụng (Health check, metrics).</li>
+                <li><strong>Caching:</strong> Tối ưu hóa hiệu năng truy vấn với Redis.</li>
+                <li><strong>Spring Cloud & Microservices:</strong> Service discovery, API Gateway, Message Queue (RabbitMQ/Kafka).</li>
+                <li><strong>CI/CD:</strong> Tự động hóa build và deploy bằng GitHub Actions / GitLab CI.</li>
+            </ul>
+        </section>
+
     </main>
 
     <!-- ACTIVE MENU CORE SCRIPT -->
@@ -1333,6 +1543,30 @@ EXPOSE 8081</code></pre>
             // Track all sections that have an id save
             document.querySelectorAll('section[id]').forEach((section) => {
                 observer.observe(section);
+            });
+            
+            // Add Copy Button logic
+            document.querySelectorAll('.code-container').forEach(container => {
+                const header = container.querySelector('.code-lang');
+                if (header) {
+                    const btn = document.createElement('button');
+                    btn.className = 'copy-btn';
+                    btn.innerHTML = '<i class="fa-regular fa-copy"></i> Copy';
+                    btn.onclick = () => {
+                        const code = container.querySelector('code').innerText;
+                        navigator.clipboard.writeText(code).then(() => {
+                            btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+                            btn.style.color = '#4ade80';
+                            btn.style.borderColor = '#4ade80';
+                            setTimeout(() => {
+                                btn.innerHTML = '<i class="fa-regular fa-copy"></i> Copy';
+                                btn.style.color = '';
+                                btn.style.borderColor = '';
+                            }, 2000);
+                        });
+                    };
+                    header.appendChild(btn);
+                }
             });
         });
     </script>
