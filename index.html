@@ -541,7 +541,7 @@
                     <i class="fa-solid fa-user-tie"></i>
                     <div class="meta-text">
                         <span>Giảng viên biên soạn</span>
-                        <strong>Thầy Trần Quang Bình - Thầy Bùi Quốc Đạt</strong>
+                        <strong>Thầy Trần Quang Bình<br>Thầy Bùi Quốc Đạt</strong>
                     </div>
                 </div>
                 <div class="meta-item">
@@ -700,7 +700,8 @@
             <p><strong>Spring Boot</strong> hoạt động theo cơ chế tự động cấu hình (Auto-configuration) nhằm triệt tiêu
                 công đoạn khai báo file XML phiền phức của Spring truyền thống. Nó nhúng sẵn ứng dụng máy chủ
                 <strong>Tomcat</strong> bên trong, cho phép phần mềm chạy độc lập tức thì sau khi kích hoạt tệp tin thực
-                thi.</p>
+                thi.
+            </p>
 
             <h3 class="subsection-title">1.2 Hướng dẫn thực hành từng bước (Step-by-Step)</h3>
 
@@ -713,7 +714,8 @@
                     <li><strong>Metadata:</strong> Group: <code>com.fpoly</code> | Artifact: <code>sof3022-lab</code> |
                         Package: <code>com.fpoly.lab</code> | Java: 17</li>
                     <li><strong>Dependencies:</strong> Tìm chọn đúng 3 thư viện: <code>Spring Web</code>,
-                        <code>Spring Boot DevTools</code>, và <code>Lombok</code>.</li>
+                        <code>Spring Boot DevTools</code>, và <code>Lombok</code>.
+                    </li>
                 </ul>
                 <p>Bấm chọn nút <strong>GENERATE</strong> để tải về gói mã nguồn dạng nén <code>.zip</code>. Giải nén
                     tệp tin và thực hiện mở import dự án bằng phần mềm <strong>IntelliJ IDEA</strong>.</p>
@@ -764,7 +766,8 @@ public class HelloController {
             <div class="step-block">
                 <div class="step-title">Bước 4: Chạy thử và Kiểm tra kết quả</div>
                 <p>Chuột phải vào file chứa hàm main <code>Sof3022LabApplication.java</code> chọn lệnh
-                    <strong>Run</strong>. Mở trình duyệt truy cập đường dẫn sau để kiểm tra kết quả:</p>
+                    <strong>Run</strong>. Mở trình duyệt truy cập đường dẫn sau để kiểm tra kết quả:
+                </p>
                 <ul>
                     <li><code>http://localhost:8081/hello</code></li>
                     <li><code>http://localhost:8081/math/sum?a=15&b=25</code></li>
@@ -800,14 +803,16 @@ public class HelloController {
             <p><strong>RESTful API</strong> thiết lập thiết kế định vị tài nguyên bằng danh từ số nhiều quy ước công
                 khai và thực hiện thao tác tác động trực tiếp thông qua 4 giao thức HTTP chính xác: <code>GET</code>
                 (Đọc dữ liệu), <code>POST</code> (Khởi tạo mới), <code>PUT</code> (Sửa đổi toàn bộ), và
-                <code>DELETE</code> (Xóa bỏ).</p>
+                <code>DELETE</code> (Xóa bỏ).
+            </p>
 
             <h3 class="subsection-title">2.2 Hướng dẫn thực hành từng bước (Step-by-Step)</h3>
 
             <div class="step-block">
                 <div class="step-title">Bước 1: Thiết kế mô hình lớp thực thể lưu trữ đối tượng (Model)</div>
                 <p>Tạo một package mới mang tên <code>com.fpoly.lab.model</code>. Khởi tạo tệp tin
-                    <code>Product.java</code> ứng dụng Lombok:</p>
+                    <code>Product.java</code> ứng dụng Lombok:
+                </p>
                 <div class="code-container">
                     <div class="code-lang">Java</div>
                     <pre><code>package com.fpoly.lab.model;
@@ -830,7 +835,8 @@ public class Product {
             <div class="step-block">
                 <div class="step-title">Bước 2: Triển khai ProductController xử lý API tuần hoàn CRUD</div>
                 <p>Tạo một Class Java mới mang tên <code>ProductController.java</code> đặt trong gói
-                    <code>controller</code>:</p>
+                    <code>controller</code>:
+                </p>
                 <div class="code-container">
                     <div class="code-lang">Java</div>
                     <pre><code>package com.fpoly.lab.controller;
@@ -899,7 +905,8 @@ public class ProductController {
                 <p>Để test tính năng thêm mới <code>POST</code>: Chọn phương thức hành động tương ứng trong Postman,
                     điền đường link <code>http://localhost:8081/api/products</code>. Chuyển sang thẻ
                     <strong>Body</strong> &rarr; chọn mục định dạng thô <strong>raw</strong> &rarr; chọn kiểu dữ liệu
-                    cấu trúc <strong>JSON</strong> và truyền dữ liệu mẫu sau:</p>
+                    cấu trúc <strong>JSON</strong> và truyền dữ liệu mẫu sau:
+                </p>
                 <div class="code-container">
                     <div class="code-lang">JSON</div>
                     <pre><code>{
@@ -909,7 +916,8 @@ public class ProductController {
 }</code></pre>
                 </div>
                 <p>Bấm chọn nút <strong>Send</strong> kiểm tra mã trạng thái góc màn hình phản hồi chuẩn
-                    <code>201 Created</code>.</p>
+                    <code>201 Created</code>.
+                </p>
             </div>
 
             <div class="callout-note">
@@ -979,7 +987,8 @@ public class ProductRepository {
                 <div class="step-title">Bước 2: Triển khai thiết kế tầng quản trị trung gian thuật toán nghiệp vụ
                     Service</div>
                 <p>Tạo một package mới mang tên <code>com.fpoly.lab.service</code>. Khởi tạo một lớp Java mang tên
-                    <code>ProductService.java</code>:</p>
+                    <code>ProductService.java</code>:
+                </p>
                 <div class="code-container">
                     <div class="code-lang">Java</div>
                     <pre><code>package com.fpoly.lab.service;
@@ -1168,7 +1177,8 @@ public class Product {
             <div class="step-block">
                 <div class="step-title">Bước 5: Viết bộ giao diện thông minh Interface JpaRepository</div>
                 <p>Trong gói <code>repository</code>, tạo một thực thể Interface mới mang tên
-                    <code>ProductDbRepository.java</code>:</p>
+                    <code>ProductDbRepository.java</code>:
+                </p>
                 <div class="code-container">
                     <div class="code-lang">Java</div>
                     <pre><code>package com.fpoly.lab.repository;
@@ -1196,7 +1206,8 @@ public interface ProductDbRepository extends JpaRepository<Product, Long> {
                     <li>Tạo thêm entity <code>Course</code> (id, ten, soTinChi, moTa) và CourseRepository, viết CRUD đầy
                         đủ.</li>
                     <li>Viết các derived query: <code>findByNameContaining</code> (tìm theo tên có chứa từ khóa),
-                        <code>findBySoTinChiGreaterThan</code> (lọc theo số tín chỉ).</li>
+                        <code>findBySoTinChiGreaterThan</code> (lọc theo số tín chỉ).
+                    </li>
                     <li>Insert sẵn 10 record mẫu vào database (dùng file SQL hoặc CommandLineRunner).</li>
                 </ul>
             </div>
@@ -1250,7 +1261,8 @@ public class Category {
 }</code></pre>
                 </div>
                 <p>Bổ sung thêm khóa ngoại liên kết thuộc tính sau vào bên trong thân Class con
-                    <code>Product.java</code>:</p>
+                    <code>Product.java</code>:
+                </p>
                 <div class="code-container">
                     <div class="code-lang">Java</div>
                     <pre><code>    @ManyToOne(fetch = FetchType.LAZY)
@@ -1282,7 +1294,8 @@ public Page<Product> getProductsWithPagination(int page, int size, String sortBy
             <div class="step-block">
                 <div class="step-title">Bước 3: Tiếp nhận tham số động kiểm thử phân trang tại Controller</div>
                 <p>Cập nhật bổ sung Endpoint động tiếp nhận Query String từ Client gửi lên vào lớp điều phối
-                    <code>ProductControllerV2.java</code>:</p>
+                    <code>ProductControllerV2.java</code>:
+                </p>
                 <div class="code-container">
                     <div class="code-lang">Java</div>
                     <pre><code>    @GetMapping("/page")
@@ -1295,7 +1308,8 @@ public Page<Product> getProductsWithPagination(int page, int size, String sortBy
                 </div>
                 <p>*Nghiệm thu thực tế:* Truy cập kiểm thử qua trình duyệt theo mẫu liên kết sau để xem dữ liệu cấu trúc
                     metadata phân trang hoàn chỉnh:
-                    <code>http://localhost:8081/v2/products/page?page=0&size=2&sortBy=price</code></p>
+                    <code>http://localhost:8081/v2/products/page?page=0&size=2&sortBy=price</code>
+                </p>
             </div>
 
             <div class="callout-note">
@@ -1328,7 +1342,8 @@ public Page<Product> getProductsWithPagination(int page, int size, String sortBy
                     lên"</em>. Việc tích hợp bộ thư viện <strong>Bean Validation</strong> hỗ trợ định cấu hình màng lọc
                 chặt chẽ ngay tại lớp Controller, kết hợp bộ xử lý ngoại lệ tập trung
                 <strong>`@RestControllerAdvice`</strong> giúp bao bọc an toàn và chuyên nghiệp hóa hệ thống phản hồi
-                thông điệp lỗi.</p>
+                thông điệp lỗi.
+            </p>
 
             <h3 class="subsection-title">6.2 Hướng dẫn thực hành từng bước (Step-by-Step)</h3>
 
@@ -1366,7 +1381,8 @@ public Page<Product> getProductsWithPagination(int page, int size, String sortBy
             <div class="step-block">
                 <div class="step-title">Bước 3: Viết bộ xử lý thu gom và cấu trúc lại mã lỗi toàn cục tập trung</div>
                 <p>Tạo một gói package mới mang tên <code>com.fpoly.lab.exception</code>. Khởi tạo một lớp Java mang tên
-                    <code>GlobalExceptionHandler.java</code> đảm nhận nhiệm vụ chuyển đổi mã lỗi mặc định:</p>
+                    <code>GlobalExceptionHandler.java</code> đảm nhận nhiệm vụ chuyển đổi mã lỗi mặc định:
+                </p>
                 <div class="code-container">
                     <div class="code-lang">Java</div>
                     <pre><code>package com.fpoly.lab.exception;
@@ -1400,7 +1416,8 @@ public class GlobalExceptionHandler {
                 </div>
                 <p>Đừng quên chèn thêm từ khóa Annotation kích hoạt <code>@Valid</code> đứng ngay trước tham số
                     <code>@RequestBody Product product</code> trong hàm lưu trữ tại lớp Controller để kích hoạt luật
-                    chặn bảo vệ.</p>
+                    chặn bảo vệ.
+                </p>
             </div>
 
             <div class="callout-note">
@@ -1439,7 +1456,8 @@ public class GlobalExceptionHandler {
             <div class="step-block">
                 <div class="step-title">Bước 1: Khởi tạo lớp bọc dữ liệu trung chuyển an toàn ProductDTO</div>
                 <p>Tạo một package mới mang tên <code>com.fpoly.lab.dto</code>. Khởi tạo một lớp Java mang tên
-                    <code>ProductDTO.java</code> loại bỏ hoàn toàn các trường dữ liệu nhạy cảm nội bộ:</p>
+                    <code>ProductDTO.java</code> loại bỏ hoàn toàn các trường dữ liệu nhạy cảm nội bộ:
+                </p>
                 <div class="code-container">
                     <div class="code-lang">Java</div>
                     <pre><code>package com.fpoly.lab.dto;
@@ -1604,7 +1622,8 @@ EXPOSE 8081</code></pre>
                     trình nạp môi trường cách ly tự động hoàn toàn. Chờ đợi tiến trình cài đặt và biên dịch tự động diễn
                     ra trong vòng 2-3 phút, Render sẽ trực tiếp cấp phát một đường link liên kết URL dạng công khai chạy
                     trực tuyến (Live) ổn định thực tế trên internet:
-                    <code>https://tên-dự-án-của-bạn.onrender.com/v2/products</code>.</p>
+                    <code>https://tên-dự-án-của-bạn.onrender.com/v2/products</code>.
+                </p>
             </div>
         </section>
 
