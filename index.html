@@ -491,6 +491,68 @@
             margin-bottom: 4px;
         }
 
+        
+        /* --- RESPONSIVE DESIGN --- */
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        @media (max-width: 992px) {
+            body {
+                flex-direction: column;
+            }
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            }
+            .sidebar-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                text-align: left;
+                padding: 16px 24px;
+            }
+            .mobile-toggle {
+                display: block;
+            }
+            .sidebar-menu {
+                display: none;
+                padding: 0 0 15px 0;
+            }
+            .sidebar-menu.show {
+                display: block;
+            }
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+                padding: 20px;
+            }
+            .hero-banner {
+                padding: 24px;
+            }
+            .hero-banner h1 {
+                font-size: 1.75rem;
+            }
+            .doc-section {
+                padding: 20px;
+            }
+            .table-responsive {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            th, td {
+                padding: 10px;
+            }
+        }
+
         /* Smooth scrolling */
         html {
             scroll-behavior: smooth;
@@ -503,8 +565,13 @@
     <!-- SIDEBAR NAVIGATION -->
     <nav class="sidebar">
         <div class="sidebar-header">
-            <div class="logo-text">SPRING BOOT CORE</div>
-            <div class="logo-sub">XƯỞNG THỰC HÀNH FPT POLY</div>
+            <div>
+                <div class="logo-text">SPRING BOOT CORE</div>
+                <div class="logo-sub">XƯỞNG THỰC HÀNH FPT POLY</div>
+            </div>
+            <button class="mobile-toggle" aria-label="Toggle Menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
         </div>
         <ul class="sidebar-menu">
             <li class="active"><a href="#thong-tin-chung"><i class="fa-solid fa-circle-info"></i>Thông Tin Chung</a>
@@ -1723,6 +1790,25 @@ EXPOSE 8081</code></pre>
                         document.querySelector(`.sidebar-menu li a[href="#${id}"]`)?.parentElement.classList.add('active');
                     } else {
                         document.querySelector(`.sidebar-menu li a[href="#${id}"]`)?.parentElement.classList.remove('active');
+                    }
+                });
+            });
+
+
+            // Mobile menu toggle logic
+            const mobileToggle = document.querySelector('.mobile-toggle');
+            const sidebarMenu = document.querySelector('.sidebar-menu');
+            if (mobileToggle) {
+                mobileToggle.addEventListener('click', () => {
+                    sidebarMenu.classList.toggle('show');
+                });
+            }
+
+            // Close mobile menu when a link is clicked (on small screens)
+            document.querySelectorAll('.sidebar-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth <= 992) {
+                        sidebarMenu.classList.remove('show');
                     }
                 });
             });
