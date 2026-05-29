@@ -558,6 +558,9 @@
             scroll-behavior: smooth;
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/vs2015.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { hljs.highlightAll(); });</script>
 </head>
 
 <body>
@@ -1216,10 +1219,78 @@ spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 
 # Kích hoạt tính năng Hibernate tự quét sinh bảng hoặc cập nhật cấu trúc cột tự động từ mã Java
 spring.jpa.hibernate.ddl-auto=update
+# Giữ cho Spring Boot trì hoãn khởi tạo dữ liệu SQL cho đến khi Hibernate đã tạo bảng xong
+spring.jpa.defer-datasource-initialization=true
 # Ép buộc in rõ câu lệnh SQL chạy ngầm xuống màn hình để theo dõi debug
 spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.format_sql=true</code></pre>
                 </div>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">Bước 3.1: Tạo kịch bản dữ liệu demo cho Buổi 4 / Buổi 5</div>
+                <p>Chuẩn bị dữ liệu mẫu cho hai bảng có quan hệ thật sự: <strong>categories</strong> và <strong>products</strong>.</p>
+                <div class="code-container">
+                    <div class="code-lang">SQL</div>
+                    <pre><code>-- 1. Đảm bảo đang dùng database fpoly_spring_core
+USE fpoly_spring_core;
+
+-- 2. Danh mục sản phẩm
+INSERT INTO categories (category_name) VALUES
+('Điện thoại'),
+('Laptop'),
+('Phụ kiện');
+
+-- 3. Sản phẩm mẫu thuộc mỗi danh mục
+INSERT INTO products (product_name, price, category_id) VALUES
+('iPhone 15 Pro Max', 34990000.0, 1),
+('Samsung Galaxy S24 Ultra', 29990000.0, 1),
+('Xiaomi 14 Ultra', 22500000.0, 1),
+('MacBook Air M3', 27990000.0, 2),
+('ASUS ROG Strix G16', 38500000.0, 2),
+('Acer Nitro V', 19500000.0, 2),
+('Chuột Logitech G102', 400000.0, 3),
+('Bàn phím cơ AKKO 3098B', 1650000.0, 3),
+('Tai nghe Sony WH-1000XM5', 6500000.0, 3),
+('Sạc Dự Phòng Anker 20000mAh', 950000.0, 3);</code></pre>
+                </div>
+                <p>Với dữ liệu này, Buổi 4 sẽ demo <strong>GET</strong>, <strong>phân trang</strong> và Buổi 5 sẽ minh họa rõ ràng mối quan hệ <strong>Category - Product</strong>.</p>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">Bước 3.2: (Tùy chọn) Tự động nạp dữ liệu mẫu khi Spring Boot khởi chạy</div>
+                <p>Nếu bạn đã nhập dữ liệu mẫu thủ công trong Bước 3.1 bằng MySQL Workbench, thì bước này không bắt buộc. Tuy nhiên, bước 3.2 giúp tự động hóa quá trình này mỗi lần khởi động ứng dụng, tránh phải chèn thủ công lại.</p>
+                <p>Trong thư mục <code>src/main/resources</code>, tạo file mới <code>import.sql</code> và dán toàn bộ nội dung SQL mẫu vào.</p>
+                <p>Spring Boot sẽ thực thi file này sau khi Hibernate đã tạo xong bảng, giúp database luôn có dữ liệu demo sẵn sàng.</p>
+                <div class="code-container">
+                    <div class="code-lang">SQL</div>
+                    <pre><code>INSERT INTO categories (category_name) VALUES
+('Điện thoại'),
+('Laptop'),
+('Phụ kiện');
+
+INSERT INTO products (product_name, price, category_id) VALUES
+('iPhone 15 Pro Max', 34990000.0, 1),
+('Samsung Galaxy S24 Ultra', 29990000.0, 1),
+('Xiaomi 14 Ultra', 22500000.0, 1),
+('MacBook Air M3', 27990000.0, 2),
+('ASUS ROG Strix G16', 38500000.0, 2),
+('Acer Nitro V', 19500000.0, 2),
+('Chuột Logitech G102', 400000.0, 3),
+('Bàn phím cơ AKKO 3098B', 1650000.0, 3),
+('Tai nghe Sony WH-1000XM5', 6500000.0, 3),
+('Sạc Dự Phòng Anker 20000mAh', 950000.0, 3);</code></pre>
+                </div>
+                <p>Lưu ý: nếu dùng Hibernate với <code>ddl-auto=update</code>, hệ thống sẽ tự tạo bảng trước và sau đó mới chèn dữ liệu từ <code>import.sql</code>. Nếu đã chèn thủ công, bước này chỉ là phương án tự động hóa chứ không phải bước bắt buộc.</p>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">Bước 3.3: Lợi ích thực tế cho Postman</div>
+                <ul>
+                    <li>API thống kê <code>/api/products/statistics</code> sẽ phản ánh ngay tổng số 10 sản phẩm và mức giá thực tế.</li>
+                    <li>API phân trang <code>/v2/products/page?page=0&size=3&sortBy=price</code> sẽ trả trang đầu gồm 3 sản phẩm giá thấp nhất.</li>
+                    <li>Buổi 5 mô tả rõ quan hệ 1-n giữa <code>Category</code> và <code>Product</code>, sinh viên dễ hình dung luồng dữ liệu.</li>
+                </ul>
             </div>
 
             <div class="step-block">
