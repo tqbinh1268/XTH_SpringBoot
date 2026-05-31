@@ -1230,18 +1230,38 @@ spring.jpa.properties.hibernate.format_sql=true</code></pre>
             <div class="step-block">
                 <div class="step-title">Bước 3.1: Tạo kịch bản dữ liệu demo cho Buổi 4 / Buổi 5</div>
                 <p>Chuẩn bị dữ liệu mẫu cho hai bảng có quan hệ thật sự: <strong>categories</strong> và <strong>products</strong>.</p>
-                <div class="code-container">
-                    <div class="code-lang">SQL</div>
-                    <pre><code>-- 1. Đảm bảo đang dùng database fpoly_spring_core
+                                <div class="code-container">
+                                        <div class="code-lang">SQL</div>
+                                        <pre><code>-- 1. Tạo database nếu chưa tồn tại và chuyển sang database đó
+CREATE DATABASE IF NOT EXISTS fpoly_spring_core CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE fpoly_spring_core;
 
--- 2. Danh mục sản phẩm
+-- 2. Tạo bảng categories
+CREATE TABLE IF NOT EXISTS categories (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    category_name VARCHAR(100) NOT NULL,
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 3. Tạo bảng products (tham chiếu tới categories)
+CREATE TABLE IF NOT EXISTS products (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    product_name VARCHAR(255) NOT NULL,
+    description TEXT,
+    price DECIMAL(12,2) NOT NULL DEFAULT 0.00,
+    category_id INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_products_category FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 4. Danh mục sản phẩm (ví dụ)
 INSERT INTO categories (category_name) VALUES
 ('Điện thoại'),
 ('Laptop'),
 ('Phụ kiện');
 
--- 3. Sản phẩm mẫu thuộc mỗi danh mục
+-- 5. Sản phẩm mẫu thuộc mỗi danh mục
 INSERT INTO products (product_name, price, category_id) VALUES
 ('iPhone 15 Pro Max', 34990000.0, 1),
 ('Samsung Galaxy S24 Ultra', 29990000.0, 1),
@@ -1253,7 +1273,7 @@ INSERT INTO products (product_name, price, category_id) VALUES
 ('Bàn phím cơ AKKO 3098B', 1650000.0, 3),
 ('Tai nghe Sony WH-1000XM5', 6500000.0, 3),
 ('Sạc Dự Phòng Anker 20000mAh', 950000.0, 3);</code></pre>
-                </div>
+                                </div>
                 <p>Với dữ liệu này, Buổi 4 sẽ demo <strong>GET</strong>, <strong>phân trang</strong> và Buổi 5 sẽ minh họa rõ ràng mối quan hệ <strong>Category - Product</strong>.</p>
             </div>
 
