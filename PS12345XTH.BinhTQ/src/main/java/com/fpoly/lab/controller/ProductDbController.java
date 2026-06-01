@@ -11,6 +11,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/db/products")
+@CrossOrigin("*") // Mở CORS cho tất cả (hoặc có thể thêm "http://localhost:63342")
 public class ProductDbController {
 
     private final ProductDbService productDbService;

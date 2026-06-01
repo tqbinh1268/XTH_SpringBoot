@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Sản Phẩm (CRUD Test)</title>
+    <!-- Sử dụng Bootstrap 5 để lên giao diện nhanh và đẹp -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background-color: #f8fafc; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .card { box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); border: none; border-radius: 10px; }
+        .table-responsive { background: white; border-radius: 10px; padding: 15px; }
+        .action-btn { cursor: pointer; padding: 5px 10px; }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="row mb-4">
+        <div class="col-12 text-center">
+            <h2 class="text-primary fw-bold"><i class="fa-solid fa-boxes-stacked"></i> Quản Lý Sản Phẩm (Giao diện CRUD)</h2>
+            <p class="text-muted">Giao diện này đang tương tác trực tiếp với API <code>http://localhost:8081/db/products</code></p>
+        </div>
+    </div>
+
+    <!-- Khu vực thông báo lỗi / thành công -->
+    <div id="alertArea" class="alert d-none" role="alert"></div>
+
+    <div class="row">
+        <!-- Cột Form Thêm/Sửa -->
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title mb-4" id="formTitle">Thêm Sản Phẩm Mới</h5>
+                    <form id="productForm">
+                        <input type="hidden" id="productId">
+
+                        <div class="mb-3">
+                            <label for="productName" class="form-label fw-bold">Tên sản phẩm</label>
+                            <input type="text" class="form-control" id="productName" placeholder="Ví dụ: Laptop Dell XPS 15" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="productPrice" class="form-label fw-bold">Giá bán (VNĐ)</label>
+                            <input type="number" class="form-control" id="productPrice" placeholder="Ví dụ: 25000000" min="0" required>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary" id="btnSave">
+                                <i class="fa-solid fa-floppy-disk"></i> Lưu Thông Tin
+                            </button>
+                            <button type="button" class="btn btn-secondary d-none" id="btnCancel" onclick="resetForm()">
+                                <i class="fa-solid fa-xmark"></i> Hủy Cập Nhật
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cột Bảng Danh Sách -->
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="card-title m-0">Danh Sách Kho Hàng</h5>
+                        <button class="btn btn-sm btn-outline-info" onclick="loadProducts()">
+                            <i class="fa-solid fa-rotate-right"></i> Tải lại dữ liệu
+                        </button>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Tên Sản Phẩm</th>
+                                    <th>Giá Bán</th>
+                                    <th class="text-center">Thao Tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="productTableBody">
+                                <!-- Dữ liệu sẽ được render vào đây qua JS -->
+                                <tr>
+                                    <td colspan="4" class="text-center text-muted">Đang tải dữ liệu...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // --- CẤU HÌNH ĐƯỜNG DẪN API ---
+    // (Hãy đổi port nếu API Spring Boot của bạn chạy ở cổng khác)
+    const API_URL = 'http://localhost:8081/db/products';
+
+    // Các phần tử DOM
+    const form = document.getElementById('productForm');
+    const inputId = document.getElementById('productId');
+    const inputName = document.getElementById('productName');
+    const inputPrice = document.getElementById('productPrice');
+    const formTitle = document.getElementById('formTitle');
+    const btnCancel = document.getElementById('btnCancel');
+    const tableBody = document.getElementById('productTableBody');
+    const alertArea = document.getElementById('alertArea');
+
+    // Chạy khi trang vừa mở lên
+    document.addEventListener('DOMContentLoaded', loadProducts);
+
+    // --- 1. READ: Lấy danh sách sản phẩm ---
+    async function loadProducts() {
+        try {
+            const response = await fetch(API_URL);
+            if (!response.ok) throw new Error('Không thể kết nối tới Server API');
+
+            const products = await response.json();
+            renderTable(products);
+        } catch (error) {
+            showAlert('Lỗi: ' + error.message + ' (Hãy đảm bảo Spring Boot đang chạy ở cổng 8081)', 'danger');
+            tableBody.innerHTML = '<tr><td colspan="4" class="text-center text-danger">Mất kết nối API</td></tr>';
+        }
+    }
+
+    // Hàm phụ: Vẽ dữ liệu ra bảng
+    function renderTable(products) {
+        tableBody.innerHTML = '';
+        if (products.length === 0) {
+            tableBody.innerHTML = '<tr><td colspan="4" class="text-center">Chưa có sản phẩm nào trong DB</td></tr>';
+            return;
+        }
+
+        products.forEach(p => {
+            const tr = document.createElement('tr');
+            // Định dạng tiền tệ VNĐ
+            const formattedPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(p.price);
+
+            tr.innerHTML = `
+                <td><strong>#${p.id}</strong></td>
+                <td>${p.name}</td>
+                <td class="text-success fw-bold">${formattedPrice}</td>
+                <td class="text-center">
+                    <button class="btn btn-sm btn-outline-primary action-btn me-1" onclick="editProduct(${p.id}, '${p.name.replace(/'/g, "\\'")}', ${p.price})" title="Sửa">
+                        <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger action-btn" onclick="deleteProduct(${p.id})" title="Xóa">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </td>
+            `;
+            tableBody.appendChild(tr);
+        });
+    }
+
+    // --- 2. CREATE & UPDATE: Xử lý Submit Form ---
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault(); // Chặn tải lại trang
+
+        const id = inputId.value;
+        const payload = {
+            name: inputName.value.trim(),
+            price: parseFloat(inputPrice.value)
+        };
+
+        const isUpdate = id !== "";
+        const url = isUpdate ? `${API_URL}/${id}` : API_URL;
+        const method = isUpdate ? 'PUT' : 'POST';
+
+        try {
+            const response = await fetch(url, {
+                method: method,
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (response.ok) {
+                showAlert(isUpdate ? 'Cập nhật thành công!' : 'Thêm mới thành công!', 'success');
+                resetForm();
+                loadProducts(); // Tải lại bảng
+            } else {
+                const errData = await response.json().catch(() => ({}));
+                console.log(errData);
+                showAlert('Thao tác thất bại. Lỗi từ Server (Có thể do Validation).', 'danger');
+            }
+        } catch (error) {
+            showAlert('Lỗi kết nối khi gửi dữ liệu', 'danger');
+        }
+    });
+
+    // --- 3. Đưa dữ liệu lên Form để chuẩn bị UPDATE ---
+    function editProduct(id, name, price) {
+        inputId.value = id;
+        inputName.value = name;
+        inputPrice.value = price;
+
+        formTitle.innerHTML = `<span class="text-warning">Đang sửa ID #${id}</span>`;
+        btnCancel.classList.remove('d-none'); // Hiện nút Hủy
+        window.scrollTo({ top: 0, behavior: 'smooth' }); // Cuộn lên đầu trang
+    }
+
+    // --- 4. DELETE: Xóa sản phẩm ---
+    async function deleteProduct(id) {
+        if (!confirm(`Bạn có chắc chắn muốn xóa sản phẩm ID #${id} này vĩnh viễn không?`)) return;
+
+        try {
+            const response = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+            if (response.ok) {
+                showAlert(`Đã xóa thành công sản phẩm #${id}`, 'success');
+                loadProducts();
+            } else {
+                showAlert('Không thể xóa sản phẩm này!', 'warning');
+            }
+        } catch (error) {
+            showAlert('Lỗi kết nối khi xóa', 'danger');
+        }
+    }
+
+    // --- CÁC HÀM TIỆN ÍCH ---
+    function resetForm() {
+        form.reset();
+        inputId.value = '';
+        formTitle.textContent = 'Thêm Sản Phẩm Mới';
+        btnCancel.classList.add('d-none');
+    }
+
+    function showAlert(message, type) {
+        alertArea.className = `alert alert-${type} alert-dismissible fade show`;
+        alertArea.innerHTML = `
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        `;
+        // Tự tắt sau 3 giây
+        setTimeout(() => { alertArea.classList.add('d-none'); }, 3000);
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
