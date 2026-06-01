@@ -1,0 +1,145 @@
+        <!-- CHI TIẾT BUỔI 3 -->
+        <section id="buoi-3" class="doc-section">
+            <h2 class="section-title"><i class="fa-solid fa-layer-group"></i>Buổi 3: Dependency Injection & Kiến Trúc
+                Thiết Kế Phân Tầng 3 Lớp</h2>
+            <h3 class="subsection-title">3.1 Tóm tắt Lý thuyết & Kiến thức Cốt lõi</h3>
+            <p>Việc viết dồn toàn bộ mã nguồn xử lý logic nghiệp vụ và lưu trữ vào duy nhất file Controller vi phạm
+                nghiêm trọng nguyên lý đơn nhiệm diện rộng. Kiến trúc <strong>3-Tier Architecture</strong> phân rã tách
+                biệt dự án thành các lớp độc lập: <strong>Controller</strong> (Giao tiếp), <strong>Service</strong>
+                (Thuật toán Nghiệp vụ), và <strong>Repository</strong> (Truy xuất Kho dữ liệu).</p>
+
+            <h3 class="subsection-title">3.2 Hướng dẫn thực hành từng bước (Step-by-Step)</h3>
+
+            <div class="step-block">
+                <div class="step-title">Bước 1: Triển khai thiết kế cô lập tầng quản lý dữ liệu Repository</div>
+                <p>Tạo một gói package mới mang tên <code>com.fpoly.lab.repository</code>. Khởi tạo một Class Java mang
+                    tên <code>ProductRepository.java</code>:</p>
+                <div class="code-container">
+                    <div class="code-lang">Java</div>
+                    <pre><code>package com.fpoly.lab.repository;
+
+import com.fpoly.lab.model.Product;
+import org.springframework.stereotype.Repository;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+@Repository // Đăng ký Class này thành một Spring Bean chịu trách nhiệm quản lý kho dữ liệu của hệ thống
+public class ProductRepository {
+    private final List<Product> list = new ArrayList<>();
+
+    public ProductRepository() {
+        list.add(new Product(1L, "Sách Java core", 150000.0));
+    }
+
+    public List<Product> findAll() { return list; }
+    public Optional<Product> findById(Long id) {
+        return list.stream().filter(p -> p.getId().equals(id)).findFirst();
+    }
+    public void save(Product product) { list.add(product); }
+    public boolean deleteById(Long id) { return list.removeIf(p -> p.getId().equals(id)); }
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">Bước 2: Triển khai thiết kế tầng quản trị trung gian thuật toán nghiệp vụ
+                    Service</div>
+                <p>Tạo một package mới mang tên <code>com.fpoly.lab.service</code>. Khởi tạo một lớp Java mang tên
+                    <code>ProductService.java</code>:
+                </p>
+                <div class="code-container">
+                    <div class="code-lang">Java</div>
+                    <pre><code>package com.fpoly.lab.service;
+
+import com.fpoly.lab.model.Product;
+import com.fpoly.lab.repository.ProductRepository;
+import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.Optional;
+
+@Service // Đăng ký Class này đóng vai trò tầng chứa đựng logic tính toán nghiệp vụ
+public class ProductService {
+
+    private final ProductRepository productRepository;
+
+    // Kỹ thuật Constructor Injection bắt buộc giúp tự động nạp (tiêm) Bean phụ thuộc từ IoC Container
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
+
+    public List<Product> getAllProducts() { return productRepository.findAll(); }
+
+    public Optional<Product> getProductById(Long id) { return productRepository.findById(id); }
+
+    public Product addProduct(Product product) {
+        if (product.getPrice() < 0) {
+            throw new IllegalArgumentException("Lỗi: Giá sản phẩm bán ra thị trường không được phép mang giá trị âm");
+        }
+        productRepository.save(product);
+        return product;
+    }
+
+    public boolean deleteProduct(Long id) { return productRepository.deleteById(id); }
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">Bước 3: Cấu trúc lại Controller phiên bản mới gọi liên kết qua Service</div>
+                <p>Mở lại file <code>ProductController.java</code>, xóa bỏ List nội bộ và tiêm <code>ProductService</code> vào:
+                </p>
+                <div class="code-container">
+                    <div class="code-lang">Java</div>
+                    <pre><code>package com.fpoly.lab.controller;
+
+import com.fpoly.lab.model.Product;
+import com.fpoly.lab.service.ProductService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/api/products")
+public class ProductController {
+
+    private final ProductService productService;
+
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Product>> getProducts() {
+        return ResponseEntity.ok(productService.getAllProducts());
+    }
+
+    @PostMapping
+    public ResponseEntity<Product> saveProduct(@RequestBody Product product) {
+        return ResponseEntity.ok(productService.addProduct(product));
+    }
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="callout-note">
+                <h4><i class="fa-solid fa-pencil"></i>Bài tập rèn luyện nâng cao về nhà</h4>
+                <ul>
+                    <li>Hoàn thiện refactor toàn bộ các hàm CRUD còn lại qua 3 lớp.</li>
+                    <li>Viết tối thiểu 3 unit test cho ProductService: test khi tìm thấy sản phẩm, khi không tìm thấy,
+                        khi thêm mới hợp lệ.</li>
+                    <li>Vẽ sơ đồ class diagram đơn giản (có thể vẽ tay rồi chụp ảnh) thể hiện quan hệ giữa 3 tầng.</li>
+                </ul>
+            </div>
+
+            <div class="callout-assess">
+                <h4><i class="fa-solid fa-check-double"></i>Tiêu chí đánh giá</h4>
+                <ul>
+                    <li>Project chia đúng 3 tầng, package gọn gàng (4 điểm).</li>
+                    <li>Sử dụng constructor injection (không dùng @Autowired field) (2 điểm).</li>
+                    <li>Có ít nhất 3 unit test pass thành công (3 điểm).</li>
+                    <li>Có sơ đồ class diagram đính kèm (1 điểm).</li>
+                </ul>
+            </div>
+        </section>

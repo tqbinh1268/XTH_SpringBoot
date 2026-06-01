@@ -1,0 +1,296 @@
+        <!-- CHI TIẾT BUỔI 4 -->
+        <section id="buoi-4" class="doc-section">
+            <h2 class="section-title"><i class="fa-solid fa-database"></i>Buổi 4: Luồng Database Song Song Với Spring
+                Data JPA (P1)</h2>
+            <h3 class="subsection-title">4.1 Tóm tắt Lý thuyết & Kiến thức Cốt lõi</h3>
+            <p><strong>Spring Data JPA</strong> là giải pháp công nghệ bọc trừu tượng (Wrapper) nằm phía trên JPA tiêu
+                chuẩn, ứng dụng sức mạnh của Hibernate framework để triển khai kỹ nghệ ánh xạ thực thể <strong>ORM
+                    (Object-Relational Mapping)</strong> thông minh.
+                <br><br>
+                <em><strong>Lưu ý quan trọng:</strong> Để giữ nguyên bài thực hành In-Memory phục vụ ôn tập, chúng ta sẽ thiết kế một <strong>luồng API song song hoàn toàn mới</strong> có hậu tố `Db` thay vì ghi đè lên code cũ.</em>
+            </p>
+
+            <h3 class="subsection-title">4.2 Hướng dẫn thực hành từng bước (Step-by-Step)</h3>
+
+            <div class="step-block">
+                <div class="step-title">Bước 1: Chuẩn bị cơ sở dữ liệu trống trên hệ quản trị MySQL</div>
+                <p>Mở ứng dụng MySQL Workbench truy cập máy chủ phòng máy, tạo cơ sở dữ liệu mới hỗ trợ font tiếng Việt:
+                </p>
+                <div class="code-container">
+                    <div class="code-lang">SQL</div>
+                    <pre><code>CREATE DATABASE fpoly_spring_core CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;</code></pre>
+                </div>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">Bước 2: Bổ sung Driver kết nối dữ liệu vào file điều phối quản lý tài nguyên
+                    pom.xml</div>
+                <p>Chèn thêm đoạn mã cấu hình dependencies sau vào bên trong tệp tin <code>pom.xml</code>:</p>
+                <div class="code-container">
+                    <div class="code-lang">XML</div>
+                    <pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-data-jpa&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;com.mysql&lt;/groupId&gt;
+    &lt;artifactId&gt;mysql-connector-j&lt;/artifactId&gt;
+    &lt;scope&gt;runtime&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre>
+                </div>
+                <p>*Chú ý bắt buộc:* Nhấp chọn nút lệnh biểu tượng vòng xoay **Reload All Maven Projects** ở góc phải
+                    màn hình IntelliJ để ép buộc hệ thống tải file thư viện về.</p>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">Bước 3: Định cấu hình khai báo chuỗi liên kết DataSource liên thông</div>
+                <p>Mở file thuộc tính hệ thống <code>src/main/resources/application.properties</code> và cập nhật cấu
+                    hình tài khoản kết nối cụ thể:</p>
+                <div class="code-container">
+                    <div class="code-lang">Properties</div>
+                    <pre><code>spring.datasource.url=jdbc:mysql://localhost:3306/fpoly_spring_core?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+spring.datasource.username=root
+spring.datasource.password=ThayMatKhauCuaBanVaoDay
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+# Kích hoạt tính năng Hibernate tự quét sinh bảng hoặc cập nhật cấu trúc cột tự động từ mã Java
+spring.jpa.hibernate.ddl-auto=update
+# Giữ cho Spring Boot trì hoãn khởi tạo dữ liệu SQL cho đến khi Hibernate đã tạo bảng xong
+spring.jpa.defer-datasource-initialization=true
+# Ép buộc in rõ câu lệnh SQL chạy ngầm xuống màn hình để theo dõi debug
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true</code></pre>
+                </div>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">Bước 3.1: Tạo kịch bản dữ liệu demo cho Buổi 4 / Buổi 5</div>
+                <p>Chuẩn bị dữ liệu mẫu cho hai bảng có quan hệ thật sự: <strong>categories</strong> và <strong>products</strong>.</p>
+                                <div class="code-container">
+                                        <div class="code-lang">SQL</div>
+                                        <pre><code>-- 1. Tạo database nếu chưa tồn tại và chuyển sang database đó
+CREATE DATABASE IF NOT EXISTS fpoly_spring_core CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE fpoly_spring_core;
+
+-- 2. Tạo bảng categories
+CREATE TABLE IF NOT EXISTS categories (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    category_name VARCHAR(100) NOT NULL,
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 3. Tạo bảng products (tham chiếu tới categories)
+CREATE TABLE IF NOT EXISTS products (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    product_name VARCHAR(255) NOT NULL,
+    description TEXT,
+    price DECIMAL(12,2) NOT NULL DEFAULT 0.00,
+    category_id INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_products_category FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 4. Danh mục sản phẩm (ví dụ)
+INSERT INTO categories (category_name) VALUES
+('Điện thoại'),
+('Laptop'),
+('Phụ kiện');
+
+-- 5. Sản phẩm mẫu thuộc mỗi danh mục
+INSERT INTO products (product_name, price, category_id) VALUES
+('iPhone 15 Pro Max', 34990000.0, 1),
+('Samsung Galaxy S24 Ultra', 29990000.0, 1),
+('Xiaomi 14 Ultra', 22500000.0, 1),
+('MacBook Air M3', 27990000.0, 2),
+('ASUS ROG Strix G16', 38500000.0, 2),
+('Acer Nitro V', 19500000.0, 2),
+('Chuột Logitech G102', 400000.0, 3),
+('Bàn phím cơ AKKO 3098B', 1650000.0, 3),
+('Tai nghe Sony WH-1000XM5', 6500000.0, 3),
+('Sạc Dự Phòng Anker 20000mAh', 950000.0, 3);</code></pre>
+                                </div>
+                <p>Với dữ liệu này, Buổi 4 sẽ demo <strong>GET</strong>, <strong>phân trang</strong> và Buổi 5 sẽ minh họa rõ ràng mối quan hệ <strong>Category - Product</strong>.</p>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">Bước 3.2: (Tùy chọn) Tự động nạp dữ liệu mẫu khi Spring Boot khởi chạy</div>
+                <p>Nếu bạn đã nhập dữ liệu mẫu thủ công trong Bước 3.1 bằng MySQL Workbench, thì bước này không bắt buộc. Tuy nhiên, bước 3.2 giúp tự động hóa quá trình này mỗi lần khởi động ứng dụng, tránh phải chèn thủ công lại.</p>
+                <p>Trong thư mục <code>src/main/resources</code>, tạo file mới <code>import.sql</code> và dán toàn bộ nội dung SQL mẫu vào.</p>
+                <p>Spring Boot sẽ thực thi file này sau khi Hibernate đã tạo xong bảng, giúp database luôn có dữ liệu demo sẵn sàng.</p>
+                <div class="code-container">
+                    <div class="code-lang">SQL</div>
+                    <pre><code>INSERT INTO categories (category_name) VALUES
+('Điện thoại'),
+('Laptop'),
+('Phụ kiện');
+
+INSERT INTO products (product_name, price, category_id) VALUES
+('iPhone 15 Pro Max', 34990000.0, 1),
+('Samsung Galaxy S24 Ultra', 29990000.0, 1),
+('Xiaomi 14 Ultra', 22500000.0, 1),
+('MacBook Air M3', 27990000.0, 2),
+('ASUS ROG Strix G16', 38500000.0, 2),
+('Acer Nitro V', 19500000.0, 2),
+('Chuột Logitech G102', 400000.0, 3),
+('Bàn phím cơ AKKO 3098B', 1650000.0, 3),
+('Tai nghe Sony WH-1000XM5', 6500000.0, 3),
+('Sạc Dự Phòng Anker 20000mAh', 950000.0, 3);</code></pre>
+                </div>
+                <p>Lưu ý: nếu dùng Hibernate với <code>ddl-auto=update</code>, hệ thống sẽ tự tạo bảng trước và sau đó mới chèn dữ liệu từ <code>import.sql</code>. Nếu đã chèn thủ công, bước này chỉ là phương án tự động hóa chứ không phải bước bắt buộc.</p>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">Bước 4: Tạo Model Entity MỚI cho luồng Database</div>
+                <p>Để giữ nguyên luồng In-Memory, chúng ta sẽ KHÔNG sửa đổi class <code>Product</code>. Thay vào đó, ta tạo một class mới là <code>ProductDb.java</code> trong gói <code>model</code> để ánh xạ với bảng trong cơ sở dữ liệu.</p>
+                <div class="code-container">
+                    <div class="code-lang">Java</div>
+                    <pre><code>package com.fpoly.lab.model;
+
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "products")
+public class ProductDb {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "product_name", nullable = false, length = 150)
+    private String name;
+
+    @Column(nullable = false)
+    private Double price;
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">Bước 5: Tạo Repository MỚI cho luồng Database</div>
+                <p>Tạo một interface mới là <code>ProductDbRepository.java</code> trong gói <code>repository</code>. Interface này sẽ kế thừa <code>JpaRepository</code> và làm việc với entity <code>ProductDb</code>.</p>
+                <div class="code-container">
+                    <div class="code-lang">Java</div>
+                    <pre><code>package com.fpoly.lab.repository;
+
+import com.fpoly.lab.model.ProductDb;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import java.util.List;
+
+@Repository
+public interface ProductDbRepository extends JpaRepository<ProductDb, Long> {
+
+    // Kỹ thuật Derived Query: Spring tự động phân rã tên hàm biên dịch ra câu lệnh truy vấn SQL tương ứng
+    List<ProductDb> findByName(String name);
+    List<ProductDb> findByPriceGreaterThan(Double price);
+}</code></pre>
+                </div>
+                <p>Khởi chạy lại dự án, kiểm tra MySQL Workbench sẽ thấy bảng <code>products</code> được tự động sinh ra (hoặc cập nhật) một cách hoàn chỉnh dựa trên entity <code>ProductDb</code>.</p>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">Bước 6: Hoàn thiện luồng Database với Service và Controller riêng</div>
+                <p>Để tách biệt hoàn toàn, chúng ta sẽ tạo Service và Controller mới cho luồng Database.</p>
+                <h3 class="subsection-title" style="font-size: 1rem; color: var(--fpt-navy); margin-top:16px; margin-bottom:8px;">6.1. Tạo ProductDbService</h3>
+                <p>Trong gói <code>service</code>, tạo class <code>ProductDbService.java</code>. Class này sẽ làm việc với <code>ProductDbRepository</code>.</p>
+                <div class="code-container">
+                    <div class="code-lang">Java</div>
+                    <pre><code>package com.fpoly.lab.service;
+
+import com.fpoly.lab.model.ProductDb;
+import com.fpoly.lab.repository.ProductDbRepository;
+import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class ProductDbService {
+    private final ProductDbRepository productDbRepository;
+
+    public ProductDbService(ProductDbRepository productDbRepository) {
+        this.productDbRepository = productDbRepository;
+    }
+
+    public List<ProductDb> getAllProducts() {
+        return productDbRepository.findAll();
+    }
+
+    public Optional<ProductDb> getProductById(Long id) {
+        return productDbRepository.findById(id);
+    }
+
+    public ProductDb addProduct(ProductDb product) {
+        return productDbRepository.save(product);
+    }
+}</code></pre>
+                </div>
+                <h3 class="subsection-title" style="font-size: 1rem; color: var(--fpt-navy); margin-top:16px; margin-bottom:8px;">6.2. Tạo ProductDbController</h3>
+                <p>Trong gói <code>controller</code>, tạo class <code>ProductDbController.java</code>. Controller này sẽ là điểm truy cập cho các API liên quan đến database, sử dụng một đường dẫn (endpoint) khác để phân biệt.</p>
+                <div class="code-container">
+                    <div class="code-lang">Java</div>
+                    <pre><code>package com.fpoly.lab.controller;
+
+import com.fpoly.lab.model.ProductDb;
+import com.fpoly.lab.service.ProductDbService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/db/products") // Endpoint riêng cho luồng DB
+public class ProductDbController {
+    private final ProductDbService productDbService;
+
+    public ProductDbController(ProductDbService productDbService) {
+        this.productDbService = productDbService;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ProductDb>> getProducts() {
+        return ResponseEntity.ok(productDbService.getAllProducts());
+    }
+
+    @PostMapping
+    public ResponseEntity<ProductDb> saveProduct(@RequestBody ProductDb product) {
+        return ResponseEntity.ok(productDbService.addProduct(product));
+    }
+}</code></pre>
+                </div>
+                <p>Bây giờ, bạn có hai bộ API song song:
+                    <ul>
+                        <li><code>/api/products</code>: Thao tác với dữ liệu In-Memory (Sử dụng Product, ProductService).</li>
+                        <li><code>/db/products</code>: Thao tác với dữ liệu trong MySQL (Sử dụng ProductDb, ProductDbService).</li>
+                    </ul>
+                </p>
+            </div>
+
+            <div class="callout-note">
+                <h4><i class="fa-solid fa-pencil"></i>Bài tập rèn luyện nâng cao về nhà</h4>
+                <ul>
+                    <li>Tạo thêm entity <code>Course</code> (id, ten, soTinChi, moTa) và CourseRepository, viết CRUD đầy
+                        đủ.</li>
+                    <li>Viết các derived query: <code>findByNameContaining</code> (tìm theo tên có chứa từ khóa),
+                        <code>findBySoTinChiGreaterThan</code> (lọc theo số tín chỉ).
+                    </li>
+                    <li>Insert sẵn 10 record mẫu vào database (dùng file SQL hoặc CommandLineRunner).</li>
+                </ul>
+            </div>
+
+            <div class="callout-assess">
+                <h4><i class="fa-solid fa-check-double"></i>Tiêu chí đánh giá</h4>
+                <ul>
+                    <li>Project kết nối được MySQL, tạo bảng tự động (3 điểm).</li>
+                    <li>CRUD Course hoạt động đầy đủ qua Postman (4 điểm).</li>
+                    <li>Derived query trả đúng kết quả (2 điểm).</li>
+                    <li>Có dữ liệu mẫu khi khởi động (1 điểm).</li>
+                </ul>
+            </div>
+        </section>

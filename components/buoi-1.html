@@ -1,0 +1,102 @@
+        <!-- CHI TIẾT BUỔI 1 -->
+        <section id="buoi-1" class="doc-section">
+            <h2 class="section-title"><i class="fa-solid fa-box-open"></i>Buổi 1: Khởi Động Dự Án & Hello World REST API
+            </h2>
+            <h3 class="subsection-title">1.1 Tóm tắt Lý thuyết & Kiến thức Cốt lõi</h3>
+            <p><strong>Spring Boot</strong> hoạt động theo cơ chế tự động cấu hình (Auto-configuration) nhằm triệt tiêu
+                công đoạn khai báo file XML phiền phức của Spring truyền thống. Nó nhúng sẵn ứng dụng máy chủ
+                <strong>Tomcat</strong> bên trong, cho phép phần mềm chạy độc lập tức thì sau khi kích hoạt tệp tin thực
+                thi.
+            </p>
+
+            <h3 class="subsection-title">1.2 Hướng dẫn thực hành từng bước (Step-by-Step)</h3>
+
+            <div class="step-block">
+                <div class="step-title">Bước 1: Khởi tạo Project trên Spring Initializr</div>
+                <p>Truy cập vào trang web: <code>start.spring.io</code> và thiết lập cấu hình chính xác:</p>
+                <ul>
+                    <li><strong>Project:</strong> Maven | <strong>Language:</strong> Java | <strong>Spring
+                            Boot:</strong> 3.3.x (Bản Stable)</li>
+                    <li><strong>Metadata:</strong> Group: <code>com.fpoly</code> | Artifact: <code>sof3022-lab</code> |
+                        Package: <code>com.fpoly.lab</code> | Java: 17</li>
+                    <li><strong>Dependencies:</strong> Tìm chọn đúng 3 thư viện: <code>Spring Web</code>,
+                        <code>Spring Boot DevTools</code>, và <code>Lombok</code>.
+                    </li>
+                </ul>
+                <p>Bấm chọn nút <strong>GENERATE</strong> để tải về gói mã nguồn dạng nén <code>.zip</code>. Giải nén
+                    tệp tin và thực hiện mở import dự án bằng phần mềm <strong>IntelliJ IDEA</strong>.</p>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">Bước 2: Tạo cấu trúc Package và Class Controller đầu tiên</div>
+                <p>Trong thư mục <code>src/main/java/com/fpoly/lab</code>, click chuột phải tạo package mới mang tên
+                    <code>controller</code>. Bên trong gói này, tạo tệp mã nguồn Java <code>HelloController.java</code>:
+                </p>
+
+                <div class="code-container">
+                    <div class="code-lang">Java</div>
+                    <pre><code>package com.fpoly.lab.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class HelloController {
+
+    @GetMapping("/hello")
+    public String sayHello() {
+        return "Xin chào sinh viên FPT Polytechnic! Chúc các em học tốt Spring Boot.";
+    }
+
+    @GetMapping("/math/sum")
+    public String tinhTong(@RequestParam(value = "a", defaultValue = "0") int a,
+                           @RequestParam(value = "b", defaultValue = "0") int b) {
+        int tong = a + b;
+        return "Kết quả của " + a + " + " + b + " = " + tong;
+    }
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">Bước 3: Đổi cấu hình cổng mạng hệ thống Server</div>
+                <p>Mở file tài nguyên hệ thống <code>src/main/resources/application.properties</code> và định cấu hình
+                    đổi port mạng tránh đụng độ:</p>
+                <div class="code-container">
+                    <div class="code-lang">Properties</div>
+                    <pre><code>server.port=8081</code></pre>
+                </div>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">Bước 4: Chạy thử và Kiểm tra kết quả</div>
+                <p>Chuột phải vào file chứa hàm main <code>Sof3022LabApplication.java</code> chọn lệnh
+                    <strong>Run</strong>. Mở trình duyệt truy cập đường dẫn sau để kiểm tra kết quả:
+                </p>
+                <ul>
+                    <li><code>http://localhost:8081/hello</code></li>
+                    <li><code>http://localhost:8081/math/sum?a=15&b=25</code></li>
+                </ul>
+            </div>
+
+            <div class="callout-note">
+                <h4><i class="fa-solid fa-pencil"></i>Bài tập rèn luyện nâng cao về nhà</h4>
+                <ul>
+                    <li>Tạo thêm 3 endpoint: <code>/info</code> (thông tin cá nhân), <code>/time</code> (thời gian hiện
+                        tại), <code>/math/sum?a=5&b=3</code> (tổng 2 số).</li>
+                    <li>Đẩy code lên GitHub repo cá nhân (tạo repo mới, gắn .gitignore cho Java).</li>
+                    <li>Đọc thêm về Maven lifecycle (compile, test, package, install) và viết tóm tắt khoảng 200 từ.
+                    </li>
+                </ul>
+            </div>
+
+            <div class="callout-assess">
+                <h4><i class="fa-solid fa-check-double"></i>Tiêu chí đánh giá</h4>
+                <ul>
+                    <li>Project khởi chạy được, không lỗi compile (4 điểm).</li>
+                    <li>Đủ 3 endpoint theo yêu cầu, trả đúng kết quả (4 điểm).</li>
+                    <li>Đẩy lên GitHub đúng format, có README ngắn (2 điểm).</li>
+                </ul>
+            </div>
+        </section>

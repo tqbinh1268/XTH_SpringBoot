@@ -1,0 +1,98 @@
+        <!-- CHI TIẾT BUỔI 7 -->
+        <section id="buoi-7" class="doc-section">
+            <h2 class="section-title"><i class="fa-solid fa-file-code"></i>Buổi 7: Triển Khai DTO Pattern An Toàn Thông
+                Tin & Ghi Nhật Ký Hệ Thống</h2>
+            <h3 class="subsection-title">7.1 Tóm tắt Lý thuyết & Kiến thức Cốt lõi</h3>
+            <p>Việc phơi bày nguyên trạng thực thể ánh xạ DB ra ngoài môi trường mạng tiềm ẩn nguy cơ rò rỉ dữ liệu hệ
+                thống nghiêm trọng. Thiết kế **DTO (Data Transfer Object)** đóng vai trò tạo lớp vỏ bọc lọc dữ liệu
+                trung chuyển an toàn. Kết hợp giải pháp ghi log qua **SLF4J** giúp thu thập lịch sử vận hành chuẩn xác
+                thay vì lệnh thô sơ phá vỡ hiệu năng `System.out.println()`.</p>
+
+            <h3 class="subsection-title">7.2 Hướng dẫn thực hành từng bước (Step-by-Step)</h3>
+
+            <div class="step-block">
+                <div class="step-title">Bước 1: Khởi tạo lớp bọc dữ liệu trung chuyển an toàn ProductDTO</div>
+                <p>Tạo một package mới mang tên <code>com.fpoly.lab.dto</code>. Khởi tạo một lớp Java mang tên
+                    <code>ProductDTO.java</code> loại bỏ hoàn toàn các trường dữ liệu nhạy cảm nội bộ:
+                </p>
+                <div class="code-container">
+                    <div class="code-lang">Java</div>
+                    <pre><code>package com.fpoly.lab.dto;
+
+import lombok.Data;
+
+@Data
+public class ProductDTO {
+    private String name;
+    private Double price;
+    // Mã trường Id nội bộ cùng các trường ngày khởi tạo hệ thống bảo mật đã được ẩn giấu thành công
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">Bước 2: Áp dụng quy trình Mapping chuyển đổi thủ công kết hợp ghi Log hệ thống
+                </div>
+                <p>Khởi tạo một lớp Java dịch vụ xử lý riêng biệt mang tên <code>ProductBackupService.java</code> nằm
+                    trọn trong gói package <code>service</code>:</p>
+                <div class="code-container">
+                    <div class="code-lang">Java</div>
+                    <pre><code>package com.fpoly.lab.service;
+
+import com.fpoly.lab.dto.ProductDTO;
+import com.fpoly.lab.model.ProductDb;
+import com.fpoly.lab.repository.ProductDbRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+@Service
+@Slf4j // Tự động nạp tích hợp biến Logger mang tên định danh chuẩn "log" của thư viện SLF4J
+public class ProductBackupService {
+
+    private final ProductDbRepository repository;
+
+    public ProductBackupService(ProductDbRepository repository) {
+        this.repository = repository;
+    }
+
+    public ProductDTO getProductDtoInfo(Long id) {
+        log.info("Hệ thống bắt đầu kích hoạt lệnh truy vấn tìm kiếm sản phẩm mang mã số ID: {}", id);
+
+        ProductDb product = repository.findById(id)
+                .orElseThrow(() -> {
+                    log.error("Lỗi nghiêm trọng: Không quét thấy bất kỳ bản ghi nào trùng khớp mã ID: {}", id);
+                    return new RuntimeException("Sản phẩm yêu cầu không tồn tại trên hệ thống DB.");
+                });
+
+        // Quy trình thực hiện chuyển đổi ánh xạ tay Mapping từ đối tượng Entity sang mô hình bọc bảo mật DTO
+        ProductDTO dto = new ProductDTO();
+        dto.setName(product.getName());
+        dto.setPrice(product.getPrice());
+
+        log.info("Quy trình đóng gói bọc chuyển đổi dữ liệu sang DTO hoàn tất thành công cho sản phẩm: {}", dto.getName());
+        return dto;
+    }
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="callout-note">
+                <h4><i class="fa-solid fa-pencil"></i>Bài tập rèn luyện nâng cao về nhà</h4>
+                <ul>
+                    <li>Tách DTO đầy đủ cho ít nhất 2 entity.</li>
+                    <li>Bổ sung log ở tất cả các action CRUD chính.</li>
+                    <li>Tạo profile <code>prod</code> với cấu hình MySQL khác và logging level WARN.</li>
+                    <li>Test chạy với profile dev và profile prod, chụp ảnh log để chứng minh.</li>
+                </ul>
+            </div>
+
+            <div class="callout-assess">
+                <h4><i class="fa-solid fa-check-double"></i>Tiêu chí đánh giá</h4>
+                <ul>
+                    <li>DTO được tách đầy đủ cho ít nhất 2 entity (3 điểm).</li>
+                    <li>Mapping hoạt động đúng (bằng tay hoặc MapStruct) (2 điểm).</li>
+                    <li>Có log ở các action chính, ghi được ra file (3 điểm).</li>
+                    <li>Profile dev/prod hoạt động (2 điểm).</li>
+                </ul>
+            </div>
+        </section>

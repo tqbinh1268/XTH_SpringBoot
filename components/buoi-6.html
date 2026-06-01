@@ -1,0 +1,107 @@
+        <!-- CHI TIẾT BUỔI 6 -->
+        <section id="buoi-6" class="doc-section">
+            <h2 class="section-title"><i class="fa-solid fa-shield-halved"></i>Buổi 6: Khai Phá Màng Lọc Validation Đầu
+                Vào & Bộ Xử Lý Lỗi Toàn Cục Tập Trung</h2>
+            <h3 class="subsection-title">6.1 Tóm tắt Lý thuyết & Kiến thức Cốt lõi</h3>
+            <p>Nguyên tắc vàng của lập trình viên: <em>"Không bao giờ tin tưởng hoàn toàn vào dữ liệu do phía Client gửi
+                    lên"</em>. Việc tích hợp bộ thư viện <strong>Bean Validation</strong> hỗ trợ định cấu hình màng lọc
+                chặt chẽ ngay tại lớp Controller, kết hợp bộ xử lý ngoại lệ tập trung
+                <strong>`@RestControllerAdvice`</strong> giúp bao bọc an toàn và chuyên nghiệp hóa hệ thống phản hồi
+                thông điệp lỗi.
+            </p>
+
+            <h3 class="subsection-title">6.2 Hướng dẫn thực hành từng bước (Step-by-Step)</h3>
+
+            <div class="step-block">
+                <div class="step-title">Bước 1: Khai báo nạp thư viện kiểm tra dữ liệu đầu vào vào file pom.xml</div>
+                <div class="code-container">
+                    <div class="code-lang">XML</div>
+                    <pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-validation&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+                </div>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">Bước 2: Thiết lập khai báo các luật ràng buộc trực tiếp trên Entity thuộc tính
+                </div>
+                <p>Cập nhật tệp tin mô hình lớp dữ liệu <code>ProductDb.java</code> chèn thêm điều kiện bọc lỗi:</p>
+                <div class="code-container">
+                    <div class="code-lang">Java</div>
+                    <pre><code>public class ProductDb {
+    private Long id;
+
+    @NotBlank(message = "Lỗi: Trường tên sản phẩm không được phép để rỗng hoặc nhập khoảng trắng đơn thuần")
+    @Size(min = 3, max = 50, message = "Lỗi: Độ dài của tên sản phẩm bắt buộc phải nằm trong giới hạn từ 3 đến 50 ký tự")
+    private String name;
+
+    @NotNull(message = "Lỗi: Giá của sản phẩm yêu cầu bắt buộc phải thực hiện nhập thông tin")
+    @Min(value = 1000, message = "Lỗi: Mức định giá của sản phẩm tối thiểu phải đạt mốc giá trị từ 1000 VNĐ trở lên")
+    private Double price;
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">Bước 3: Viết bộ xử lý thu gom và cấu trúc lại mã lỗi toàn cục tập trung</div>
+                <p>Tạo một gói package mới mang tên <code>com.fpoly.lab.exception</code>. Khởi tạo một lớp Java mang tên
+                    <code>GlobalExceptionHandler.java</code> đảm nhận nhiệm vụ chuyển đổi mã lỗi mặc định:
+                </p>
+                <div class="code-container">
+                    <div class="code-lang">Java</div>
+                    <pre><code>package com.fpoly.lab.exception;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+import java.util.HashMap;
+import java.util.Map;
+
+@RestControllerAdvice // Bộ chặn lắng nghe thụ động toàn diện lỗi phát sinh từ các phân tầng dự án đưa lên
+public class GlobalExceptionHandler {
+
+    // Hàm chuyên biệt bóc tách thông tin khi màng lọc kiểm tra Validation đầu vào thất bại
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+            errors.put(fieldName, errorMessage);
+        });
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
+    }
+}</code></pre>
+                </div>
+                <p>Đừng quên chèn thêm từ khóa Annotation kích hoạt <code>@Valid</code> đứng ngay trước tham số
+                    <code>@RequestBody ProductDb product</code> trong hàm lưu trữ tại lớp <code>ProductDbController</code> để kích hoạt luật
+                    chặn bảo vệ.
+                </p>
+            </div>
+
+            <div class="callout-note">
+                <h4><i class="fa-solid fa-pencil"></i>Bài tập rèn luyện nâng cao về nhà</h4>
+                <ul>
+                    <li>Bổ sung validation cho Request cập nhật (có thể khác với Request tạo mới).</li>
+                    <li>Tạo custom annotation <code>@ValidPhoneNumber</code> cho số điện thoại Việt Nam (10 số, bắt đầu
+                        bằng 0).</li>
+                    <li>Test ít nhất 5 trường hợp lỗi khác nhau qua Postman và lưu vào collection.</li>
+                </ul>
+            </div>
+
+            <div class="callout-assess">
+                <h4><i class="fa-solid fa-check-double"></i>Tiêu chí đánh giá</h4>
+                <ul>
+                    <li>Validation đầy đủ trên 4 trường yêu cầu (3 điểm).</li>
+                    <li>GlobalExceptionHandler hoạt động, trả response chuẩn (3 điểm).</li>
+                    <li>Custom annotation hoạt động đúng (2 điểm).</li>
+                    <li>Postman collection có đủ ca lỗi (2 điểm).</li>
+                </ul>
+            </div>
+        </section>

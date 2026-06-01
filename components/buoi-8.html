@@ -1,0 +1,86 @@
+        <!-- CHI TIẾT BUỔI 8 -->
+        <section id="buoi-8" class="doc-section">
+            <h2 class="section-title"><i class="fa-solid fa-rocket"></i>Buổi 8: Đóng Gói Mã Nguồn Thành File Cứng .JAR &
+                Triển Khai Phát Hành Lên Môi Trường Đám Mây</h2>
+            <h3 class="subsection-title">8.1 Tóm tắt Lý thuyết & Kiến thức Cốt lõi</h3>
+            <p>Quy trình đóng gói nén toàn bộ mã nguồn Bytecode Java kết hợp tài nguyên thành một tệp thực thi duy nhất
+                dạng tệp tin **.JAR** giúp ứng dụng vận hành độc lập. Tích hợp giải pháp ảo hóa môi trường qua tệp tin
+                **Dockerfile** giúp phần mềm cách ly hoàn toàn lỗi lệch phiên bản hệ điều hành khi deploy lên internet.
+            </p>
+
+            <h3 class="subsection-title">8.2 Hướng dẫn thực hành từng bước (Step-by-Step)</h3>
+
+            <h3 class="subsection-title">8.1 Đề xuất Mini Project (Chọn 1)</h3>
+            <div class="step-block" style="border-left-color: #3b82f6;">
+                <ul>
+                    <li><strong>Đề 1 - Quản lý Thư viện:</strong> Sách, Tác giả, Thể loại, Phiếu mượn. Có CRUD,
+                        validation, phân trang, log, exception handling.</li>
+                    <li><strong>Đề 2 - Quản lý Sinh viên - Khóa học:</strong> Sinh viên, Lớp, Khóa học. Sinh viên có thể
+                        đăng ký nhiều khóa học, có điểm số.</li>
+                    <li><strong>Đề 3 - Blog cá nhân:</strong> Bài viết, Chuyên mục, Tag, Bình luận. Có API tìm kiếm theo
+                        tag, lọc theo chuyên mục.</li>
+                    <li><strong>Đề 4 - Quản lý sản phẩm:</strong> Sản phẩm, Danh mục, Đơn hàng, Khách hàng. Có thống kê
+                        doanh thu cơ bản.</li>
+                </ul>
+                <p style="margin-top: 12px;"><strong>Yêu cầu chung:</strong> Có ít nhất 4 entity với quan hệ rõ ràng;
+                    Đầy đủ CRUD; Có validation, exception handling; Phân trang ít nhất 1 API; Có chia DTO; Có Log; Có
+                    README.md trên GitHub và có Postman Collection đi kèm.</p>
+            </div>
+
+            <h3 class="subsection-title">8.2 Hướng dẫn Build & Deploy (Step-by-Step)</h3>
+            <div class="step-block">
+                <div class="step-title">Bước 1: Thực hiện lệnh đóng gói ứng dụng bằng bộ công cụ điều khiển Maven
+                    Lifecycle</div>
+                <p>Nhìn sang thanh công cụ dọc bên phải màn hình IntelliJ IDEA, click chuột trái mở rộng tab quản lý
+                    công cụ **Maven** &rarr; Chọn mở thư mục con **Lifecycle** &rarr; Thực hiện kích hoạt nhấp đúp chuột
+                    liên tiếp tuần tự vào hai lệnh điều khiển hành động cốt lõi sau:</p>
+                <ol>
+                    <li>Nhấp đúp chuột vào tiến trình lệnh <strong>clean</strong> (Hệ thống quét dọn xóa sạch các tệp
+                        tin lưu cache thừa cũ).</li>
+                    <li>Nhấp đúp chuột vào tiến trình lệnh <strong>package</strong> (Hệ thống chạy tự động kiểm thử biên
+                        dịch và thực hiện nén dự án).</li>
+                </ol>
+                <p>Theo dõi luồng log chạy ra đạt chữ thông báo thành công màu xanh: <code>[INFO] BUILD SUCCESS</code>.
+                    Truy cập thư mục con vừa tự động sinh ra mang tên là <code>/target</code> nằm ở cây thư mục dự án
+                    xác nhận tệp tin cứng: <code>sof3022-lab-0.0.1-SNAPSHOT.jar</code>.</p>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">Bước 2: Thiết lập file cấu hình đóng gói Container ảo hóa Dockerfile</div>
+                <p>Tại khu vực thư mục gốc ngoài cùng cao nhất của dự án (Vị trí nằm ngang hàng so với file pom.xml),
+                    click chuột phải chọn khởi tạo file mới đặt tên chính xác hoàn toàn là `Dockerfile`. Viết nội dung
+                    thiết lập chi tiết sau:</p>
+                <div class="code-container">
+                    <div class="code-lang">Dockerfile</div>
+                    <pre><code># Bước 1: Sử dụng cấu trúc Base Image chứa môi trường chạy Java OpenJDK 17 xây dựng trên nhân Linux rút gọn
+FROM eclipse-temurin:17-jdk-alpine
+
+# Bước 2: Thiết lập khai báo đường dẫn thư mục làm việc chính thức bên trong máy chủ ảo Container
+WORKDIR /app
+
+# Bước 3: Thực hiện sao chép file cứng .jar từ máy local target vào bên trong cấu trúc máy chủ ảo
+COPY target/sof3022-lab-0.0.1-SNAPSHOT.jar app.jar
+
+# Bước 4: Cấu hình lệnh ép buộc hệ thống kích hoạt khởi chạy file jar độc lập ngay khi bật container
+ENTRYPOINT ["java", "-jar", "app.jar"]
+
+# Bước 5: Khai báo mở cổng mạng giao tiếp ảo tương thích cấu hình properties của dự án
+EXPOSE 8081</code></pre>
+                </div>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">Bước 3: Đẩy mã nguồn lên nền tảng đám mây GitHub và kết nối thực thi Deploy trực
+                    tuyến</div>
+                <p>Đẩy toàn bộ dự án lên một Repository cá nhân trạng thái công khai thiết lập trên trang GitHub cá
+                    nhân. Sử dụng trình duyệt truy cập vào hệ thống đám mây quản lý <strong>Render.com</strong>, tiến
+                    hành chọn liên kết tài khoản GitHub cá nhân và nhấp chọn dòng lệnh khởi tạo dịch vụ **New Web
+                    Service**.</p>
+                <p>Hệ thống đám mây sẽ tự động phát hiện tệp tin `Dockerfile` có sẵn trong dự án để tự cấu hình quy
+                    trình nạp môi trường cách ly tự động hoàn toàn. Chờ đợi tiến trình cài đặt và biên dịch tự động diễn
+                    ra trong vòng 2-3 phút, Render sẽ trực tiếp cấp phát một đường link liên kết URL dạng công khai chạy
+                    trực tuyến (Live) ổn định thực tế trên internet:
+                    <code>https://tên-dự-án-của-bạn.onrender.com/api/products</code>.
+                </p>
+            </div>
+        </section>

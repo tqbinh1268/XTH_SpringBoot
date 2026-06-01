@@ -1,0 +1,110 @@
+        <!-- PHẦN E: PHỤ LỤC -->
+        <section id="phu-luc" class="doc-section">
+            <h2 class="section-title"><i class="fa-solid fa-book-open"></i>D. Phụ Lục: Tài Liệu Tham Khảo & Lộ Trình
+            </h2>
+
+            <h3 class="subsection-title">1. Tổng Hợp Các Lệnh cURL / Postman (Phục vụ Test Nhanh)</h3>
+            <p>Dưới đây là các lệnh cURL hoàn chỉnh cho toàn bộ các thao tác CRUD. Bạn có thể <strong>copy và dán trực tiếp vào Terminal</strong>, hoặc dùng tính năng <strong>Import (Paste Raw Text) trong Postman</strong> để sinh ra request tự động.</p>
+
+            <h4 style="margin-top: 15px; font-size: 1rem; color: var(--fpt-navy);"><i class="fa-solid fa-server"></i> Luồng In-Memory (Sử dụng List/ArrayList)</h4>
+
+            <div class="code-container">
+                <div class="code-lang">1. Lấy danh sách sản phẩm (GET)</div>
+                <pre><code>curl --location 'http://localhost:8081/api/products'</code></pre>
+            </div>
+            <div class="code-container">
+                <div class="code-lang">2. Lấy 1 sản phẩm theo ID (GET)</div>
+                <pre><code>curl --location 'http://localhost:8081/api/products/1'</code></pre>
+            </div>
+            <div class="code-container">
+                <div class="code-lang">3. Thêm mới (POST)</div>
+                <pre><code>curl --location 'http://localhost:8081/api/products' \
+--header 'Content-Type: application/json' \
+--data '{
+    "id": 3,
+    "name": "Bàn phím cơ AKKO",
+    "price": 1250000.0
+}'</code></pre>
+            </div>
+            <div class="code-container">
+                <div class="code-lang">4. Cập nhật sản phẩm (PUT)</div>
+                <pre><code>curl --location --request PUT 'http://localhost:8081/api/products/1' \
+--header 'Content-Type: application/json' \
+--data '{
+    "id": 1,
+    "name": "Laptop Acer Nitro (Đã cập nhật)",
+    "price": 19000000.0
+}'</code></pre>
+            </div>
+            <div class="code-container">
+                <div class="code-lang">5. Xóa sản phẩm (DELETE)</div>
+                <pre><code>curl --location --request DELETE 'http://localhost:8081/api/products/1'</code></pre>
+            </div>
+
+            <h4 style="margin-top: 25px; font-size: 1rem; color: var(--fpt-navy);"><i class="fa-solid fa-database"></i> Luồng Database (Sử dụng MySQL + JPA)</h4>
+
+            <div class="code-container">
+                <div class="code-lang">1. Lấy danh sách (GET)</div>
+                <pre><code>curl --location 'http://localhost:8081/db/products'</code></pre>
+            </div>
+            <div class="code-container">
+                <div class="code-lang">2. Lấy 1 sản phẩm theo ID (GET)</div>
+                <pre><code>curl --location 'http://localhost:8081/db/products/1'</code></pre>
+            </div>
+            <div class="code-container">
+                <div class="code-lang">3. Thêm mới (POST - Hợp lệ)</div>
+                <pre><code>curl --location 'http://localhost:8081/db/products' \
+--header 'Content-Type: application/json' \
+--data '{
+    "name": "Màn hình Dell 24 inch",
+    "price": 3200000.0
+}'</code></pre>
+            </div>
+            <div class="code-container">
+                <div class="code-lang">4. Test Lỗi Validation (POST - Thiếu Name, Giá âm)</div>
+                <pre><code>curl --location 'http://localhost:8081/db/products' \
+--header 'Content-Type: application/json' \
+--data '{
+    "name": "",
+    "price": -500.0
+}'</code></pre>
+            </div>
+            <div class="code-container">
+                <div class="code-lang">5. Cập nhật sản phẩm (PUT)</div>
+                <pre><code>curl --location --request PUT 'http://localhost:8081/db/products/1' \
+--header 'Content-Type: application/json' \
+--data '{
+    "name": "iPhone 15 Pro Max (Đã giảm giá)",
+    "price": 33990000.0
+}'</code></pre>
+            </div>
+            <div class="code-container">
+                <div class="code-lang">6. Xóa sản phẩm (DELETE)</div>
+                <pre><code>curl --location --request DELETE 'http://localhost:8081/db/products/1'</code></pre>
+            </div>
+            <div class="code-container">
+                <div class="code-lang">7. Phân trang (GET)</div>
+                <pre><code>curl --location 'http://localhost:8081/db/products/page?page=0&size=2&sortBy=price'</code></pre>
+            </div>
+
+            <h3 class="subsection-title">2. Tài liệu tham khảo khuyến nghị</h3>
+            <ul>
+                <li><strong>Tài liệu chính thức:</strong> <a href="https://spring.io/guides" target="_blank">Spring
+                        Guides</a> và <a href="https://docs.spring.io/spring-boot/" target="_blank">Spring Boot
+                        Reference</a></li>
+                <li><strong>Khóa học & Bài viết:</strong> Baeldung (rất chi tiết về Spring), Spring Academy.</li>
+                <li><strong>Cộng đồng:</strong> Stack Overflow, Reddit (r/java, r/SpringBoot), các nhóm Java/Spring trên
+                    Facebook tiếng Việt.</li>
+            </ul>
+
+            <h3 class="subsection-title">3. Lộ trình phát triển sự nghiệp từ Spring Boot Core</h3>
+            <p>Hoàn thành khóa học này là bước khởi đầu vững chắc. Để trở thành một lập trình viên Java chuyên nghiệp và toàn diện, hãy chinh phục các đỉnh cao tiếp theo:</p>
+            <ul>
+                <li><strong>Hoàn thiện Giao diện Người dùng (Frontend):</strong> Nâng tầm sản phẩm bằng cách xây dựng một Single Page Application (SPA) hiện đại với <strong>VueJS hoặc React</strong>, kết nối và tiêu thụ toàn bộ hệ thống API bạn vừa xây dựng. Đây là bước đi tất yếu để trở thành một <strong>Full-stack Developer</strong>.</li>
+                <li><strong>Bảo mật chuyên sâu với Spring Security:</strong> Làm chủ "người gác cổng" Spring Security, triển khai xác thực và phân quyền bằng JWT (JSON Web Tokens) để bảo vệ tài nguyên hệ thống một cách chuyên nghiệp.</li>
+                <li><strong>Kiểm thử Tích hợp & Tự động hóa:</strong> Nâng cao chất lượng mã nguồn với Integration Test (<code>@SpringBootTest</code>) và ảo hóa môi trường test bằng TestContainers, đảm bảo ứng dụng chạy ổn định trong mọi kịch bản.</li>
+                <li><strong>Giám sát và Tối ưu hóa Hiệu năng:</strong> Sử dụng Spring Boot Actuator để theo dõi "sức khỏe" ứng dụng và triển khai Caching với Redis để tăng tốc độ phản hồi, giảm tải cho database.</li>
+                <li><strong>Kiến trúc Microservices:</strong> Phá vỡ ứng dụng nguyên khối (monolith) thành các dịch vụ nhỏ, độc lập (microservices) bằng Spring Cloud, làm quen với Service Discovery, API Gateway và hàng đợi tin nhắn (RabbitMQ/Kafka).</li>
+                <li><strong>Vận hành & Triển khai liên tục (CI/CD):</strong> Tự động hóa hoàn toàn quy trình build, test và deploy ứng dụng lên môi trường production bằng GitHub Actions hoặc GitLab CI, rút ngắn thời gian phát hành sản phẩm.</li>
+            </ul>
+        </section>

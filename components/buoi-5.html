@@ -1,0 +1,109 @@
+        <!-- CHI TIẾT BUỔI 5 -->
+        <section id="buoi-5" class="doc-section">
+            <h2 class="section-title"><i class="fa-solid fa-diagram-project"></i>Buổi 5: Thiết Lập Mối Quan Hệ Thực Thể,
+                Phân Trang & Sắp Xếp Dữ Liệu</h2>
+            <h3 class="subsection-title">5.1 Tóm tắt Lý thuyết & Kiến thức Cốt lõi</h3>
+            <p>Bài toán liên kết thực thể Một - Nhiều diễn ra phổ biến (Một Danh mục chứa Nhiều Sản phẩm). Cần đặc biệt
+                ưu tiên cấu hình cơ chế nạp dữ liệu trì hoãn <code>FetchType.LAZY</code> nhằm ngăn chặn hiện tượng nghẽn
+                băng thông và lỗi truy vấn hệ thống nghiêm trọng.</p>
+
+            <h3 class="subsection-title">5.2 Hướng dẫn thực hành từng bước (Step-by-Step)</h3>
+
+            <div class="step-block">
+                <div class="step-title">Bước 1: Thiết lập tạo lớp thực thể cha Danh mục (Category)</div>
+                <p>Khởi tạo một Class mới mang tên `Category.java` đặt trong gói thư mục `model` định nghĩa mối quan hệ:
+                </p>
+                <div class="code-container">
+                    <div class="code-lang">Java</div>
+                    <pre><code>package com.fpoly.lab.model;
+
+import jakarta.persistence.*;
+import lombok.Data;
+import java.util.List;
+
+@Data
+@Entity
+@Table(name = "categories")
+public class Category {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String categoryName;
+
+    // mappedBy: Trỏ chính xác tới tên của biến khai báo nằm bên trong lớp con (ProductDb)
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ProductDb> products;
+}</code></pre>
+                </div>
+                <p>Bổ sung thêm khóa ngoại liên kết thuộc tính sau vào bên trong thân Class con
+                    <code>ProductDb.java</code>:
+                </p>
+                <div class="code-container">
+                    <div class="code-lang">Java</div>
+                    <pre><code>    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id") // Tạo cột khóa ngoại ánh xạ trực tiếp dưới bảng MySQL Database
+    private Category category;</code></pre>
+                </div>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">Bước 2: Phát triển tính năng Phân trang dữ liệu lớn tại lớp nghiệp vụ Service
+                </div>
+                <p>Mở rộng mã nguồn bên trong file xử lý <code>ProductDbService.java</code> chèn thêm thuật toán phân
+                    trang:</p>
+                <div class="code-container">
+                    <div class="code-lang">Java</div>
+                    <pre><code>import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+
+public Page<ProductDb> getProductsWithPagination(int page, int size, String sortBy) {
+    // Thiết lập PageRequest hỗ trợ chỉ số trang bắt đầu từ 0, giới hạn số lượng và sắp xếp tăng dần tự động
+    Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy).ascending());
+    return productDbRepository.findAll(pageable);
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">Bước 3: Tiếp nhận tham số động kiểm thử phân trang tại Controller</div>
+                <p>Cập nhật bổ sung Endpoint động tiếp nhận Query String từ Client gửi lên vào lớp điều phối
+                    <code>ProductDbController.java</code>:
+                </p>
+                <div class="code-container">
+                    <div class="code-lang">Java</div>
+                    <pre><code>    @GetMapping("/page")
+    public ResponseEntity<Page<ProductDb>> getProductsPage(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size,
+            @RequestParam(defaultValue = "id") String sortBy) {
+        return ResponseEntity.ok(productDbService.getProductsWithPagination(page, size, sortBy));
+    }</code></pre>
+                </div>
+                <p>*Nghiệm thu thực tế:* Truy cập kiểm thử qua trình duyệt theo mẫu liên kết sau để xem dữ liệu cấu trúc
+                    metadata phân trang hoàn chỉnh:
+                    <code>http://localhost:8081/db/products/page?page=0&size=2&sortBy=price</code>
+                </p>
+            </div>
+
+            <div class="callout-note">
+                <h4><i class="fa-solid fa-pencil"></i>Bài tập rèn luyện nâng cao về nhà</h4>
+                <ul>
+                    <li>Hoàn thiện đầy đủ các API quan hệ Category - Product (hoặc Class - Student).</li>
+                    <li>Viết <code>@Query</code> đếm số lượng sản phẩm theo từng danh mục.</li>
+                    <li>Đọc tài liệu về <strong>N+1 query problem</strong> và viết giải thích ngắn (200 từ) về cách phát
+                        hiện và xử lý.</li>
+                </ul>
+            </div>
+
+            <div class="callout-assess">
+                <h4><i class="fa-solid fa-check-double"></i>Tiêu chí đánh giá</h4>
+                <ul>
+                    <li>Quan hệ entity được thiết lập đúng, tạo bảng có khóa ngoại (3 điểm).</li>
+                    <li>API quan hệ trả đúng dữ liệu (3 điểm).</li>
+                    <li>Pagination hoạt động đúng, có metadata (2 điểm).</li>
+                    <li>Có @Query JPQL chạy đúng (2 điểm).</li>
+                </ul>
+            </div>
+        </section>

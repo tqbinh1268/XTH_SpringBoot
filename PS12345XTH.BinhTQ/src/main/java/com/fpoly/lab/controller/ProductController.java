@@ -2,93 +2,67 @@ package com.fpoly.lab.controller;
 
 import com.fpoly.lab.dto.ProductStatistics;
 import com.fpoly.lab.model.Product;
+import com.fpoly.lab.service.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
 
-    private final List<Product> productList = new ArrayList<>();
+    private final ProductService productService;
 
-    public ProductController() {
-        productList.add(new Product(1L, "Laptop Acer Nitro", 18500000.0));
-        productList.add(new Product(2L, "Chuột Logitech G102", 400000.0));
+    public ProductController(ProductService productService) {
+        this.productService = productService;
     }
 
     @GetMapping
-    public ResponseEntity getAllProducts() {
-        return ResponseEntity.ok(productList);
+    public ResponseEntity<List<Product>> getAllProducts() {
+        return ResponseEntity.ok(productService.getAllProducts());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity getProductById(@PathVariable Long id) {
-        for (Product p : productList) {
-            if (p.getId().equals(id)) return ResponseEntity.ok(p);
+    public ResponseEntity<?> getProductById(@PathVariable Long id) {
+        Optional<Product> productOptional = productService.getProductById(id);
+        if (productOptional.isPresent()) {
+            return ResponseEntity.ok(productOptional.get());
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Không tìm thấy sản phẩm mã ID: " + id);
     }
 
     @PostMapping
-    public ResponseEntity createProduct(@RequestBody Product newProduct) {
-        productList.add(newProduct);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newProduct);
+    public ResponseEntity<Product> createProduct(@RequestBody Product newProduct) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(productService.addProduct(newProduct));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity updateProduct(@PathVariable Long id, @RequestBody Product updatedProduct) {
-        for (Product p : productList) {
-            if (p.getId().equals(id)) {
-                p.setName(updatedProduct.getName());
-                p.setPrice(updatedProduct.getPrice());
-                return ResponseEntity.ok(p);
-            }
+    public ResponseEntity<?> updateProduct(@PathVariable Long id, @RequestBody Product updatedProduct) {
+        try {
+            Product result = productService.updateProduct(id, updatedProduct);
+            return ResponseEntity.ok(result);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Thất bại. Không thấy ID.");
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteProduct(@PathVariable Long id) {
-        boolean removed = productList.removeIf(p -> p.getId().equals(id));
-        if (removed) return ResponseEntity.ok("Xóa bỏ thành công sản phẩm ID: " + id);
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Xóa thất bại.");
+    public ResponseEntity<String> deleteProduct(@PathVariable Long id) {
+        if (productService.deleteProduct(id)) {
+            return ResponseEntity.ok("Xóa bỏ thành công sản phẩm ID: " + id);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Xóa thất bại. Không tìm thấy ID.");
     }
 
-    // 6. LẤY TOP N SẢN PHẨM CÓ GIÁ CAO NHẤT (GET http://localhost:8081/api/products/top?n=5)
     @GetMapping("/top")
     public ResponseEntity<List<Product>> getTopProducts(@RequestParam(value = "n", defaultValue = "5") int n) {
-        List<Product> topProducts = productList.stream()
-                .sorted((p1, p2) -> p2.getPrice().compareTo(p1.getPrice()))
-                .limit(n)
-                .toList();
-
-        return ResponseEntity.ok(topProducts);
+        return ResponseEntity.ok(productService.getTopNProducts(n));
     }
 
-    // 7. THỐNG KÊ SẢN PHẨM (GET http://localhost:8081/api/products/statistics)
     @GetMapping("/statistics")
     public ResponseEntity<ProductStatistics> getProductStatistics() {
-        // Nếu danh sách rỗng, trả về các chỉ số bằng 0 để tránh lỗi logic
-        if (productList.isEmpty()) {
-            return ResponseEntity.ok(new ProductStatistics(0, 0.0, 0.0, 0.0));
-        }
-
-        // Tận dụng DoubleSummaryStatistics của Stream API để tính toán siêu tốc toàn bộ chỉ số
-        java.util.DoubleSummaryStatistics stats = productList.stream()
-                .mapToDouble(Product::getPrice)
-                .summaryStatistics();
-
-        // Đóng gói các chỉ số thu thập được vào đối tượng phản hồi
-        ProductStatistics statistics = new ProductStatistics(
-                stats.getCount(),        // Tổng số lượng phần tử
-                stats.getAverage(),      // Giá trị trung bình (Average)
-                stats.getMax(),          // Giá trị lớn nhất (Max)
-                stats.getMin()           // Giá trị nhỏ nhất (Min)
-        );
-
-        return ResponseEntity.ok(statistics);
+        return ResponseEntity.ok(productService.getStatistics());
     }
 }

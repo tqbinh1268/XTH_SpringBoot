@@ -1,0 +1,130 @@
+        <!-- CHI TIẾT BUỔI 2 -->
+        <section id="buoi-2" class="doc-section">
+            <h2 class="section-title"><i class="fa-solid fa-cloud-arrow-down"></i>Buổi 2: REST Controller Cơ Bản & Thao
+                Tác Dữ Liệu Tạm Thời (In-Memory)</h2>
+            <h3 class="subsection-title">2.1 Tóm tắt Lý thuyết & Kiến thức Cốt lõi</h3>
+            <p><strong>RESTful API</strong> thiết lập thiết kế định vị tài nguyên bằng danh từ số nhiều quy ước công
+                khai và thực hiện thao tác tác động trực tiếp thông qua 4 giao thức HTTP chính xác: <code>GET</code>
+                (Đọc dữ liệu), <code>POST</code> (Khởi tạo mới), <code>PUT</code> (Sửa đổi toàn bộ), và
+                <code>DELETE</code> (Xóa bỏ).
+            </p>
+
+            <h3 class="subsection-title">2.2 Hướng dẫn thực hành từng bước (Step-by-Step)</h3>
+
+            <div class="step-block">
+                <div class="step-title">Bước 1: Thiết kế mô hình lớp thực thể lưu trữ đối tượng (Model)</div>
+                <p>Tạo một package mới mang tên <code>com.fpoly.lab.model</code>. Khởi tạo tệp tin
+                    <code>Product.java</code> ứng dụng Lombok:
+                </p>
+                <div class="code-container">
+                    <div class="code-lang">Java</div>
+                    <pre><code>package com.fpoly.lab.model;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Product {
+    private Long id;
+    private String name;
+    private Double price;
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">Bước 2: Triển khai ProductController xử lý API tuần hoàn CRUD (Phiên bản ban đầu)</div>
+                <p>Tạo một Class Java mới mang tên <code>ProductController.java</code> đặt trong gói
+                    <code>controller</code>. <em>Lưu ý: Chúng ta sẽ refactor class này ở Buổi 3.</em>
+                </p>
+                <div class="code-container">
+                    <div class="code-lang">Java</div>
+                    <pre><code>package com.fpoly.lab.controller;
+
+import com.fpoly.lab.model.Product;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/products")
+public class ProductController {
+
+    private final List<Product> productList = new ArrayList<>();
+
+    public ProductController() {
+        productList.add(new Product(1L, "Laptop Acer Nitro", 18500000.0));
+        productList.add(new Product(2L, "Chuột Logitech G102", 400000.0));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Product>> getAllProducts() {
+        return ResponseEntity.ok(productList);
+    }
+
+    // Các phương thức CRUD khác...
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="step-block">
+                <div class="step-title">Bước 3: Hướng dẫn cấu hình kiểm thử dữ liệu qua phần mềm Postman</div>
+                <p>Để test tính năng thêm mới <code>POST</code>: Chọn phương thức hành động tương ứng trong Postman,
+                    điền đường link <code>http://localhost:8081/api/products</code>. Chuyển sang thẻ
+                    <strong>Body</strong> &rarr; chọn mục định dạng thô <strong>raw</strong> &rarr; chọn kiểu dữ liệu
+                    cấu trúc <strong>JSON</strong> và truyền dữ liệu mẫu sau:
+                </p>
+                <div class="code-container">
+                    <div class="code-lang">JSON</div>
+                    <pre><code>{
+    "id": 3,
+    "name": "Bàn phím cơ AKKO",
+    "price": 1250000.0
+}</code></pre>
+                </div>
+                <p>Bấm chọn nút <strong>Send</strong> kiểm tra mã trạng thái góc màn hình phản hồi chuẩn
+                    <code>201 Created</code>.
+                </p>
+
+                <h4 style="margin-top: 15px; font-size: 0.95rem; color: var(--fpt-navy);"><i class="fa-solid fa-bolt"></i> Test Nhanh (Import thẳng vào Postman hoặc chạy cURL)</h4>
+                <p>Bạn có thể copy đoạn mã cURL sau và dán trực tiếp vào mục <strong>Import &rarr; Raw text</strong> trong Postman để có ngay Request hoàn chỉnh:</p>
+                <div class="code-container">
+                    <div class="code-lang">cURL (POST)</div>
+                    <pre><code>curl --location 'http://localhost:8081/api/products' \
+--header 'Content-Type: application/json' \
+--data '{
+    "id": 3,
+    "name": "Bàn phím cơ AKKO",
+    "price": 1250000.0
+}'</code></pre>
+                </div>
+                <div class="code-container">
+                    <div class="code-lang">cURL (GET)</div>
+                    <pre><code>curl --location 'http://localhost:8081/api/products'</code></pre>
+                </div>
+            </div>
+
+            <div class="callout-note">
+                <h4><i class="fa-solid fa-pencil"></i>Bài tập rèn luyện nâng cao về nhà</h4>
+                <ul>
+                    <li>Bổ sung endpoint <code>GET /api/products/top?n=5</code> trả về 5 sản phẩm nổi bật.</li>
+                    <li>Bổ sung endpoint <code>GET /api/products/statistics</code> trả về thống kê: tổng số, giá trung
+                        bình, cao nhất, thấp nhất.</li>
+                    <li>Tạo collection Postman lưu lại các request đã test, export ra file JSON và đẩy lên GitHub.</li>
+                </ul>
+            </div>
+
+            <div class="callout-assess">
+                <h4><i class="fa-solid fa-check-double"></i>Tiêu chí đánh giá</h4>
+                <ul>
+                    <li>Đầy đủ 6 endpoint cơ bản, hoạt động đúng (5 điểm).</li>
+                    <li>2 endpoint nâng cao trả đúng dữ liệu (3 điểm).</li>
+                    <li>Có file Postman collection được commit cùng source code (2 điểm).</li>
+                </ul>
+            </div>
+        </section>
