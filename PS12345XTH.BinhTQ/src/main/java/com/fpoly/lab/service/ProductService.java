@@ -37,6 +37,7 @@ public class ProductService {
                 .orElseThrow(() -> new RuntimeException("Thất bại. Không thấy ID."));
         existingProduct.setName(updatedProduct.getName());
         existingProduct.setPrice(updatedProduct.getPrice());
+        existingProduct.setQuantity(updatedProduct.getQuantity());
         return existingProduct;
     }
 

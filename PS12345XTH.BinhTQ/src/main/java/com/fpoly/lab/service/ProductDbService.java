@@ -8,6 +8,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @Service
 public class ProductDbService {
@@ -38,6 +40,7 @@ public class ProductDbService {
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy sản phẩm với ID: " + id));
         existingProduct.setName(updatedProduct.getName());
         existingProduct.setPrice(updatedProduct.getPrice());
+        existingProduct.setQuantity(updatedProduct.getQuantity());
         return productDbRepository.save(existingProduct);
     }
 
@@ -58,5 +61,11 @@ public class ProductDbService {
             return new ProductStatistics(0, 0.0, 0.0, 0.0);
         }
         return productDbRepository.getStatistics();
+    }
+
+    public Page<ProductDb> getProductsWithPagination(int page, int size, String sortBy) {
+        // Thiết lập PageRequest hỗ trợ chỉ số trang bắt đầu từ 0, giới hạn số lượng và sắp xếp tăng dần tự động
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy).ascending());
+        return productDbRepository.findAll(pageable);
     }
 }
